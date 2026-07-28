@@ -1,0 +1,134 @@
+generated: '2026-07-28'
+method: searched
+source: live probes of every CAA host in apis.yml, review.yml and the OpenAPI servers[]
+description: >-
+  Results of probing the /.well-known/ discovery surface plus /llms.txt for every
+  host the UK Civil Aviation Authority operates that appears in apis.yml, in the
+  review probe log, or in the OpenAPI servers[]. Status is the HTTP code observed
+  on 2026-07-28. Only documents that returned a real, correctly-typed payload were
+  saved verbatim; every 404 on www.caa.co.uk returns the site's 20,449-byte HTML
+  404 page, which is recorded as a 404 rather than a document.
+hosts:
+  - host: https://www.caa.co.uk
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        type: text/plain
+        file: uk-caa-security.txt
+        note: RFC 9116. Contact routes to the Vulnerability Reporting Form; Expires 2027-04-01T12:30:00.000Z.
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /llms.txt
+        status: 200
+        type: text/plain
+        file: ../llms/uk-caa-llms.txt
+        note: >-
+          Provider-published llms.txt (8,201 bytes). Not referenced anywhere in the
+          CAA's own navigation; found by direct probe on 2026-07-28. Carries an
+          explicit AI-usage section ("No permission for model training without
+          consent") and an attribution instruction.
+  - host: https://www.atol.org
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /llms.txt
+        status: 200
+        type: text/plain
+        file: ../llms/uk-caa-atol-llms.txt
+        note: >-
+          Provider-published llms.txt (12,338 bytes) for the CAA's ATOL consumer
+          site. atol.org is the destination the CAA's own llms.txt links to for
+          ATOL protection and Check an ATOL.
+  - host: https://consultations.caa.co.uk
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://ginfoapi.caa.co.uk
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://aircraftapi.caa.co.uk
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://portal.caa.co.uk
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+        note: >-
+          portal.caa.co.uk redirects to sso.caa.co.uk (ADFS WS-Federation). No OIDC
+          discovery document is served at the portal host.
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://register-drones.caa.co.uk
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://airspacechange.caa.co.uk
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /llms.txt
+        status: 404

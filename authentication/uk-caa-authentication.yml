@@ -1,0 +1,80 @@
+generated: '2026-07-28'
+method: searched
+source: >-
+  https://consultations.caa.co.uk/api/2.4/ and
+  https://help.delib.net/article/350-api-v2-x-developers-guide (the vendor guide the
+  CAA's own API reference links to), plus a live anonymous request verified
+  2026-07-28.
+docs: https://help.delib.net/article/350-api-v2-x-developers-guide
+description: >-
+  Authentication profile for every UK Civil Aviation Authority API surface that was
+  probed. The one documented, publicly callable API on a caa.co.uk domain — the
+  Citizen Space consultations API — requires NO authentication at all. That is a
+  documented posture, not an omission: the vendor developer guide the CAA links to
+  states verbatim that "the current version of the API provides read-only access to
+  publicly visible data. This means that no authentication is required as the access
+  level is the same as a public visitor to the site." The remaining CAA surfaces are
+  gated by mechanisms that are not developer authentication (browser-origin locking,
+  reCAPTCHA, ADFS WS-Federation employee/licence-holder sign-in, or a paid order
+  form).
+summary:
+  types: [none]
+  api_key_in: []
+  oauth2_flows: []
+  note: >-
+    The OpenAPI carries no securitySchemes because the API genuinely declares none.
+    derive-authentication.py therefore produced no profile; this file was written
+    from the published documentation instead.
+schemes: []
+surfaces:
+  - name: CAA Consultations API (Citizen Space 2.4)
+    base_url: https://consultations.caa.co.uk/api/2.4
+    auth: none
+    verified: '2026-07-28'
+    evidence: >-
+      Anonymous GET /api/2.4/json_search_results?st=open&fields=all returned HTTP
+      200, application/json, 57,395 bytes with no key, no header, no cookie and no
+      signup. Response headers include access-control-allow-origin: * — the API is
+      callable directly from a browser on any origin.
+    transport_security:
+      https: true
+      hsts: true
+      hsts_max_age: 31536000
+      cors: '*'
+    read_only: true
+    docs: https://consultations.caa.co.uk/api/2.4/
+  - name: G-INFO aircraft register search backend
+    base_url: https://ginfoapi.caa.co.uk/api/aircraft
+    auth: none-published
+    gate: browser-origin
+    evidence: >-
+      Undocumented internal backend for the CAA's own G-INFO search widget. GET
+      returns 405; an unauthenticated POST returns 400 with response header
+      access-control-allow-origin: https://www.caa.co.uk. There is no published
+      credential a developer can obtain — this is origin pinning, not authentication.
+  - name: Check an ATOL search backend
+    base_url: https://aircraftapi.caa.co.uk/api/checkanatol
+    auth: none-published
+    gate: browser-origin + reCAPTCHA
+    evidence: >-
+      Undocumented internal backend for the Check an ATOL widget. GET returns 405,
+      unauthenticated POST returns 400, origin-locked to https://www.caa.co.uk, and
+      the host page carries a data-recaptchasitekey attribute.
+  - name: CAA Customer Portal
+    base_url: https://portal.caa.co.uk
+    auth: ws-federation
+    idp: https://sso.caa.co.uk
+    evidence: >-
+      portal.caa.co.uk redirects to an ADFS WS-Federation sign-in at sso.caa.co.uk.
+      This is a licence/certificate-holder login, not a developer credential; no
+      OIDC discovery document is served (/.well-known/openid-configuration -> 404).
+  - name: Bulk G-INFO aircraft register
+    auth: commercial
+    evidence: >-
+      Paid subscription ordered on a form and emailed as an MS Excel file, licensed
+      for use on a single PC. A commercial agreement, not an API credential.
+gaps:
+  - No API key programme, no OAuth 2.0 authorization server, no OIDC discovery, and
+    no mTLS on any CAA API host.
+  - No published API terms of service, rate-limit policy or SLA for the one
+    documented API.

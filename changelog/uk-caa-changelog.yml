@@ -1,0 +1,95 @@
+generated: '2026-07-28'
+method: searched
+source: >-
+  https://consultations.caa.co.uk/api/2.0/ , /2.1/ , /2.2/ , /2.3/ , /2.4/ — all
+  five fetched 2026-07-28 (HTTP 200) and diffed against each other.
+description: >-
+  The UK Civil Aviation Authority publishes no dated API changelog. It does,
+  however, serve every historical version of the Citizen Space consultations API
+  concurrently, each with its own complete reference page. This artifact is the
+  version history reconstructed from those five pages: each entry records what the
+  version's own reference page documents that the previous version's did not. No
+  dates are published for any version, so `date` is null throughout — that is
+  recorded absence, not an omission on our side.
+scheme: uri-path
+current: '2.4'
+changelog_url: null
+version_index: https://consultations.caa.co.uk/api/
+entries:
+  - version: '2.4'
+    date: null
+    docs: https://consultations.caa.co.uk/api/2.4/
+    breaking: false
+    summary: >-
+      "Version 2.4 is a minor update to Version 2.3, updating the values of the
+      'type_string' extended attribute." (verbatim from the reference page)
+    additions:
+      - Parameter `at` — "Activity type. Must be one of the activity types available to the site."
+      - Response field `activity_type` — "The activity type ID" (basic tier).
+    deprecations:
+      - Parameter `ct` relabelled "(deprecated) Legacy activity type".
+      - Response field `type` relabelled "(deprecated) The legacy type".
+    removals:
+      - >-
+        The `callback` (jsonp) parameter documented in 2.3 is not listed on the 2.4
+        reference page. Recorded as undocumented-in-2.4; not tested for removal.
+  - version: '2.3'
+    date: null
+    docs: https://consultations.caa.co.uk/api/2.3/
+    breaking: false
+    summary: >-
+      The largest expansion in the series: a second method, the workspace model, and
+      the full "all" field tier.
+    additions:
+      - Method `json_consultation_details` (dept + id required, fields optional) with a documented 404.
+      - Parameter `callback` — "Used to enable jsonp requests".
+      - Response fields `workspace_title` and `workspace_id`.
+      - >-
+        Response fields at the "all" tier — why, what_happens_next, feedbackdate,
+        resultsdate, contact_name, contact_jobtitle, contact_team, contact_phone,
+        contact_email, related_links, related_consultations, supporting_documents.
+      - Audiences, areas and interests promoted from bare id lists to {id, name} objects.
+    deprecations:
+      - Response field `department` relabelled "(deprecated) The name of the department"; superseded by workspace_title.
+      - Response field `dept` relabelled "(deprecated) The ID of the department"; superseded by workspace_id.
+  - version: '2.2'
+    date: null
+    docs: https://consultations.caa.co.uk/api/2.2/
+    breaking: false
+    summary: Adds a direct participation link to the extended field tier.
+    additions:
+      - >-
+        Response field `participation_url` — "The direct URL to the participation
+        method (survey etc), skipping the overview page (extended and above)".
+  - version: '2.1'
+    date: null
+    docs: https://consultations.caa.co.uk/api/2.1/
+    breaking: true
+    summary: >-
+      Replaces the boolean `extended` switch with the three-valued `fields`
+      parameter and introduces the "all" tier.
+    additions:
+      - Parameter `fields` with permissible values basic, extended and all (default basic).
+      - Response fields `audiences`, `areas` and `interests` at the "all" tier.
+    removals:
+      - >-
+        Parameter `extended` ("This will return extra information about each
+        activity, but is slower"), documented in 2.0 and gone from 2.1 onward.
+  - version: '2.0'
+    date: null
+    docs: https://consultations.caa.co.uk/api/2.0/
+    breaking: false
+    summary: >-
+      Baseline. One method, `json_search_results`, with the tx/pc/st/au/in/de/ar/
+      dk/fd/td/ct search parameters, a boolean `extended` switch, and the id, title,
+      url, status, overview, startdate, enddate, department, type, type_string,
+      progress and visibility response fields.
+notes:
+  - >-
+    Every version listed remains live and returns data; none has been withdrawn.
+    Verified 2026-07-28.
+  - >-
+    This is the consultation-platform vendor's version history as deployed on a CAA
+    domain, not a CAA aviation-data release history. The CAA publishes no changelog
+    for the G-INFO register, ATOL data or its statistical series — those are
+    republished as dated files.

@@ -1,0 +1,76 @@
+generated: '2026-07-28'
+method: derived
+source: >-
+  openapi/uk-caa-consultations-api-openapi.yml (documented responses),
+  https://consultations.caa.co.uk/api/2.4/ (the error sentence is verbatim from
+  this page), plus live probes 2026-07-28.
+format: http-status-only
+description: >-
+  The UK Civil Aviation Authority publishes no error reference, no error-code
+  registry and no structured error envelope for any of its API surfaces. The single
+  documented failure mode across the whole estate is a bare 404 on the consultations
+  API. Errors are signalled by HTTP status alone: there is no
+  application/problem+json body, no RFC 9457 type URI, no machine-readable code and
+  no correlation id. Recorded as-is; nothing was invented to fill the catalogue.
+rfc9457: false
+envelope:
+  present: false
+  detail: >-
+    Failed requests return the platform's HTML error page, not JSON. The vendor
+    developer guide's own worked example tells clients to branch on
+    `result.status_code < 400` rather than parse a body.
+problems:
+  - status: 404
+    title: Activity not found
+    documented: true
+    source_operation: openapi/uk-caa-consultations-api-openapi.yml#json_consultation_details
+    detail: >-
+      "If dept or id are not specified or do not exist, a 404 status code is
+      returned." (verbatim, CAA API 2.4 reference)
+    verified: '2026-07-28'
+    verification: >-
+      GET /api/2.4/json_consultation_details?dept=nope&id=nope returned HTTP 404.
+    remediation: >-
+      Both dept and id are required and must match a published activity. Resolve
+      them from a json_search_results response — use the `dept` and `id` fields of
+      the activity, not the human-readable department name.
+  - status: 404
+    title: Unknown API version
+    documented: false
+    detail: >-
+      Requesting a version path that is not served returns 404 with the platform's
+      HTML 404 page. Observed for /api/2.5/ on 2026-07-28. Versions 2.0 through 2.4
+      all return 200.
+    remediation: Use one of the versions listed at https://consultations.caa.co.uk/api/.
+silent_failures:
+  - condition: Unsupported or misspelt query parameter
+    behaviour: >-
+      "Any unsupported arguments will be ignored." An unrecognised filter is
+      silently dropped — the request still returns 200 with an unfiltered or
+      differently-filtered result set, and the client gets no signal. This is the
+      most consequential failure mode for an automated consumer of this API.
+    source: https://consultations.caa.co.uk/api/2.4/
+  - condition: Out-of-range value for an enumerated parameter
+    behaviour: >-
+      No validation error is documented for st, dk, at or ct values outside their
+      documented sets. Treat any unexpected result-set size as a possible silently
+      ignored filter.
+other_surfaces:
+  - surface: https://ginfoapi.caa.co.uk/api/aircraft/search
+    observed:
+      - status: 405
+        detail: GET is not allowed; the endpoint accepts POST only.
+      - status: 400
+        detail: Unauthenticated/origin-mismatched POST returns 400 with no documented error body.
+    documented: false
+  - surface: https://aircraftapi.caa.co.uk/api/checkanatol/search
+    observed:
+      - status: 405
+        detail: GET is not allowed; the endpoint accepts POST only.
+      - status: 400
+        detail: Unauthenticated/origin-mismatched POST returns 400 with no documented error body.
+    documented: false
+gaps:
+  - No RFC 9457 problem+json anywhere in the estate.
+  - No error code registry, no error type URIs, no per-error documentation pages.
+  - No correlation/request id returned on success or failure, so failures cannot be reported back to the CAA with a reference.

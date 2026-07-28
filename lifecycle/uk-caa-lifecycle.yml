@@ -1,0 +1,79 @@
+generated: '2026-07-28'
+method: searched
+source: >-
+  https://consultations.caa.co.uk/api/ (version index),
+  https://consultations.caa.co.uk/api/2.0/ .. /2.4/ (per-version reference pages),
+  https://help.delib.net/article/350-api-v2-x-developers-guide , plus live probes
+  2026-07-28.
+description: >-
+  Lifecycle posture for the UK Civil Aviation Authority's one documented API. The
+  CAA publishes no API deprecation policy, no SLA and no status page; what it does
+  publish is a concurrently-served, path-versioned API whose per-version reference
+  pages mark superseded parameters and fields "(deprecated)" in place.
+versioning:
+  scheme: uri-path
+  current: '2.4'
+  concurrent: ['2.0', '2.1', '2.2', '2.3', '2.4']
+  index: https://consultations.caa.co.uk/api/
+  docs: https://consultations.caa.co.uk/api/2.4/
+  notes: >-
+    "The following API versions are available within this Citizen Space site: 2.0,
+    2.1, 2.2, 2.3, 2.4." All five were verified live (HTTP 200) on 2026-07-28; 2.5
+    returns 404. Nothing indicates any version has ever been withdrawn.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  policy_published: false
+  practice: in-place-annotation
+  notes: >-
+    No RFC 8594 Sunset or Deprecation header, and no deprecation-policy page exists
+    on any CAA domain. Deprecation is communicated only by the "(deprecated)" label
+    inside the reference page for the current version. No removal date is ever
+    given, and old versions stay served indefinitely, so the effective policy is
+    "nothing is removed".
+  deprecated_parameters:
+    - source: openapi/uk-caa-consultations-api-openapi.yml#json_search_results
+      name: ct
+      note: >-
+        "(deprecated) Legacy activity type" in 2.4; superseded by `at`. Still
+        documented and still accepted.
+  deprecated_fields:
+    - field: department
+      note: '(deprecated) The name of the department that the activity belongs to. Superseded by workspace_title in 2.3.'
+    - field: dept
+      note: '(deprecated) The ID of the department that the activity belongs to. Superseded by workspace_id in 2.3.'
+    - field: type
+      note: '(deprecated) The legacy type. Superseded by activity_type / type_string in 2.4.'
+sla:
+  url: null
+  uptime_target: null
+  notes: >-
+    No SLA, uptime commitment or support commitment is published for any CAA API
+    surface. No API terms of service exist either.
+status_page:
+  url: null
+  notes: >-
+    No status page. status.caa.co.uk does not resolve (curl exit 000, probed
+    2026-07-28); no status.* or *.statuspage.io property was found for the CAA. No
+    StatusPage pointer is emitted.
+support:
+  channel: none-for-developers
+  notes: >-
+    There is no developer support channel. The CAA publishes a general enquiry
+    route and a statutory information-request route (Freedom of Information Act
+    2000 / EIR 2004 / UK GDPR) at
+    https://www.caa.co.uk/about-us/information-requests/accessing-information-held-by-the-caa/
+    but nothing addressed to API consumers.
+changelog:
+  artifact: changelog/uk-caa-changelog.yml
+  notes: >-
+    No dated changelog is published. The changelog artifact is reconstructed from
+    the diff between the five concurrently-served version reference pages, each of
+    which was fetched on 2026-07-28.
+data_lifecycle:
+  notes: >-
+    Bulk aviation data is file-shaped and versioned by publication date, not by API
+    version: monthly airport, punctuality and airline statistics as CSV/PDF behind
+    opaque /Documents/Download/{siteId}/{guid}/{docId} URLs with no index or
+    enumeration, and the full G-INFO aircraft register as a paid MS Excel
+    subscription licensed for single-PC use.

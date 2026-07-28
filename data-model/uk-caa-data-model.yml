@@ -1,0 +1,136 @@
+generated: '2026-07-28'
+method: derived
+source: openapi/uk-caa-consultations-api-openapi.yml
+description: >-
+  Entity-relationship graph derived from the schema $refs and id-reference fields in
+  the CAA consultations OpenAPI, plus the identifier vocabulary the CAA's own
+  aviation surfaces expose (recorded separately below because those surfaces have no
+  machine-readable schema). Only relationships that appear as a real $ref or a real
+  id field are recorded.
+entities:
+  - name: Activity
+    schema: '#/components/schemas/Activity'
+    description: A published consultation or engagement activity.
+    primary_key: id
+    id_shape: slug
+    id_example: future-personnel-licencing-research-register
+    composite_key: [dept, id]
+    composite_note: >-
+      json_consultation_details requires BOTH dept and id — the activity id is only
+      unique within its workspace/department.
+    field_tiers:
+      basic: [id, title, url, status, overview, startdate, enddate, activity_type]
+      extended: [workspace_title, workspace_id, department, dept, type_string, type, participate_url, progress, visibility]
+      all: [why, what_happens_next, feedbackdate, resultdate, contact_name, contact_jobtitle, contact_team, contact_phone, contact_email, related_links, related_consultations, supporting_documents, audiences, areas, interests]
+  - name: Workspace
+    schema: null
+    description: >-
+      The department/workspace an activity belongs to. Not an addressable resource —
+      it exists only as the workspace_id / workspace_title pair embedded in an
+      Activity, and as the `dept` request parameter.
+    primary_key: workspace_id
+    id_shape: slug
+    id_example: corporate-communications
+  - name: Term
+    schema: '#/components/schemas/Term'
+    description: A shared {id, name} classification term used for audiences, areas and interests.
+    primary_key: id
+    id_shape: label
+    id_example: Airworthiness
+  - name: RelatedLink
+    schema: '#/components/schemas/RelatedLink'
+    description: A {url, title} pair. Used for both related_links and related_consultations.
+  - name: SupportingDocument
+    schema: '#/components/schemas/SupportingDocument'
+    description: A {url, title, size} attachment on an activity.
+relationships:
+  - from: Activity
+    to: Workspace
+    type: belongs_to
+    via: workspace_id
+    also_via: dept
+    note: dept is the deprecated alias of workspace_id; department is the deprecated alias of workspace_title.
+  - from: Activity
+    to: Term
+    type: has_many
+    via: audiences
+    ref: '#/components/schemas/Term'
+  - from: Activity
+    to: Term
+    type: has_many
+    via: interests
+    ref: '#/components/schemas/Term'
+  - from: Activity
+    to: Term
+    type: has_many
+    via: areas
+    ref: '#/components/schemas/Term'
+    note: Omitted from the response unless area support is installed on the site.
+  - from: Activity
+    to: SupportingDocument
+    type: has_many
+    via: supporting_documents
+    ref: '#/components/schemas/SupportingDocument'
+  - from: Activity
+    to: RelatedLink
+    type: has_many
+    via: related_links
+    ref: '#/components/schemas/RelatedLink'
+  - from: Activity
+    to: Activity
+    type: has_many
+    via: related_consultations
+    ref: '#/components/schemas/RelatedLink'
+    note: >-
+      Self-referencing, but only by url + title — related activities are NOT
+      returned as ids, so traversal requires parsing the url back into dept + id.
+traversal:
+  - from: json_search_results
+    to: json_consultation_details
+    keys: [dept, id]
+    note: The only join in the API. Search returns dept and id; details consumes them.
+search_dimensions:
+  - parameter: au
+    entity: Term
+    facet: audiences
+  - parameter: in
+    entity: Term
+    facet: interests
+  - parameter: ar
+    entity: Term
+    facet: areas
+  - parameter: de
+    entity: Workspace
+    facet: workspace_id
+  - parameter: at
+    entity: Activity
+    facet: activity_type
+aviation_identifiers:
+  note: >-
+    The CAA's aviation surfaces (G-INFO aircraft register, Check an ATOL) publish no
+    machine-readable schema, so no entities are derived for them. The identifier
+    vocabulary below is transcribed from the CAA's published G-INFO field dictionary
+    at https://www.caa.co.uk/aircraft-register/g-info/what-do-the-data-fields-mean/
+    and is recorded here so consumers know what keys the CAA's real aviation data
+    hangs on.
+  identifiers:
+    - id: registration-mark
+      description: UK nationality and registration mark (eg G-EZBA). The register primary key.
+      portable: true
+    - id: icao-24-bit-address
+      description: ICAO 24-bit aircraft address, published in binary, hexadecimal and octal. Used for Mode S and ELT.
+      portable: true
+    - id: icao-type-designator
+      description: Two-, three- or four-character ICAO aircraft type designator per ICAO Doc 8643.
+      portable: true
+    - id: serial-number
+      description: Manufacturer's serial number / constructor's number / PFA project number.
+      portable: true
+    - id: atol-licence-number
+      description: CAA-issued ATOL licence number. Proprietary UK identifier with no equivalent elsewhere.
+      portable: false
+    - id: airport-name
+      description: >-
+        UK airport statistics identify airports by NAME in the CSV (eg "HEATHROW"),
+        not by IATA or ICAO code — consumers must join on free text.
+      portable: false

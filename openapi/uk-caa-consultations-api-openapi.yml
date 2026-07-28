@@ -1,0 +1,369 @@
+openapi: 3.1.0
+info:
+  title: CAA Consultations API (Citizen Space 2.4)
+  version: '2.4'
+  summary: Public consultation activities published by the UK Civil Aviation Authority.
+  description: >-
+    Machine-readable description of the Citizen Space (Delib) public consultation
+    API deployed on the UK Civil Aviation Authority's consultations domain.
+
+
+    PROVENANCE: this document is NOT published by the UK CAA or by Delib. It was
+    written by API Evangelist as a faithful transcription of the CAA's own
+    published API reference at https://consultations.caa.co.uk/api/2.4/ (HTTP 200,
+    fetched 2026-07-28), with every parameter name, allowed value, description and
+    response field copied from that page. Field names and types were then
+    cross-checked against a live anonymous response
+    (GET /api/2.4/json_search_results?st=open&fields=all -> HTTP 200,
+    application/json, 57,395 bytes, 2026-07-28). Nothing was invented; where the
+    published documentation and the live response disagree on a field name, both
+    are recorded and the divergence is flagged with x-doc-name.
+
+
+    The CAA publishes no OpenAPI of its own. Versions 2.0, 2.1, 2.2, 2.3 and 2.4
+    are served concurrently at https://consultations.caa.co.uk/api/. No API key,
+    no signup and no documented rate limit.
+  contact:
+    name: UK Civil Aviation Authority
+    url: https://consultations.caa.co.uk/
+  x-evidence:
+    docs: https://consultations.caa.co.uk/api/2.4/
+    docs_status: 200
+    docs_probed: '2026-07-28'
+    version_index: https://consultations.caa.co.uk/api/
+    live_verification:
+      url: https://consultations.caa.co.uk/api/2.4/json_search_results?st=open&fields=all
+      status: 200
+      content_type: application/json
+      bytes: 57395
+      probed: '2026-07-28'
+    vendor_guide: https://help.delib.net/article/350-api-v2-x-developers-guide
+    authored_by: API Evangelist enrichment pipeline
+    method: generated
+servers:
+  - url: https://consultations.caa.co.uk/api/2.4
+    description: Citizen Space API version 2.4 (current)
+  - url: https://consultations.caa.co.uk/api/2.3
+    description: Citizen Space API version 2.3
+  - url: https://consultations.caa.co.uk/api/2.2
+    description: Citizen Space API version 2.2
+  - url: https://consultations.caa.co.uk/api/2.1
+    description: Citizen Space API version 2.1
+  - url: https://consultations.caa.co.uk/api/2.0
+    description: Citizen Space API version 2.0
+tags:
+  - name: Consultations
+    description: Published CAA consultation and engagement activities.
+paths:
+  /json_search_results:
+    get:
+      operationId: json_search_results
+      summary: Search published consultation activities
+      description: >-
+        Accepts any of the documented search parameters. If no arguments are
+        supplied, all published activities are returned. Any unsupported
+        arguments are ignored. Returns a JSON array of activity objects.
+      tags: [Consultations]
+      parameters:
+        - name: tx
+          in: query
+          required: false
+          description: Free text search, case insensitive (eg "Park")
+          schema: { type: string }
+        - name: pc
+          in: query
+          required: false
+          description: Postcode, accepts partial postcodes (eg "BS8" or "BS8 111")
+          schema: { type: string }
+        - name: st
+          in: query
+          required: false
+          description: State, must be one of `open`, `forthcoming` or `closed`
+          schema:
+            type: string
+            enum: [open, forthcoming, closed]
+        - name: au
+          in: query
+          required: false
+          description: Audience ID, must be one of the audiences configured on the site
+          schema: { type: string }
+        - name: in
+          in: query
+          required: false
+          description: Interest ID, must be one of the interests configured on the site
+          schema: { type: string }
+        - name: de
+          in: query
+          required: false
+          description: >-
+            Department the activity sits within. Value must be the same as the ID
+            of a department within the site
+          schema: { type: string }
+        - name: ar
+          in: query
+          required: false
+          description: Area ID, must be one of the areas configured on the site
+          schema: { type: string }
+        - name: dk
+          in: query
+          required: false
+          description: Date search type, must be one of `op` (open date) and `cl` (close date)
+          schema:
+            type: string
+            enum: [op, cl]
+        - name: fd
+          in: query
+          required: false
+          description: Date to search from. Must be used in conjunction with `dk` (dd/mm/yyyy)
+          schema: { type: string }
+        - name: td
+          in: query
+          required: false
+          description: Date to search until. Must be used in conjunction with `dk` (dd/mm/yyyy)
+          schema: { type: string }
+        - name: at
+          in: query
+          required: false
+          description: Activity type. Must be one of the activity types available to the site.
+          schema: { type: string }
+        - name: ct
+          in: query
+          required: false
+          deprecated: true
+          description: >-
+            (deprecated) Legacy activity type. Must be one of `QuickConsult`
+            (Online Survey), `File` (Email/Postal Activity), `Document` (Offline
+            Activity), or `Link` (Link)
+          schema:
+            type: string
+            enum: [QuickConsult, File, Document, Link]
+        - name: fields
+          in: query
+          required: false
+          description: >-
+            Determines which groups of metadata fields about the activities will
+            be returned. Permissible values are 'basic', 'extended' and 'all'.
+            Omitting this parameter is equivalent to 'basic'.
+          schema:
+            type: string
+            enum: [basic, extended, all]
+            default: basic
+      responses:
+        '200':
+          description: A JSON array of activities matching the search.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Activity'
+  /json_consultation_details:
+    get:
+      operationId: json_consultation_details
+      summary: Get one consultation activity by department and activity ID
+      description: >-
+        Returns a JSON structure containing the same fields as
+        json_search_results. If dept or id are not specified or do not exist, a
+        404 status code is returned.
+      tags: [Consultations]
+      parameters:
+        - name: dept
+          in: query
+          required: true
+          description: The ID of the department (eg 'parks-and-recreation')
+          schema: { type: string }
+        - name: id
+          in: query
+          required: true
+          description: The ID of the activity (eg 'spring-planting-in-kings-gardens')
+          schema: { type: string }
+        - name: fields
+          in: query
+          required: false
+          description: >-
+            Determines which groups of metadata fields about the activities will
+            be returned. Permissible values are 'basic', 'extended' and 'all'.
+            Omitting this parameter is equivalent to 'basic'.
+          schema:
+            type: string
+            enum: [basic, extended, all]
+            default: basic
+      responses:
+        '200':
+          description: The activity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Activity'
+        '404':
+          description: >-
+            Returned when dept or id are not specified or do not exist
+            (documented verbatim in the CAA API reference).
+components:
+  schemas:
+    Activity:
+      type: object
+      title: Consultation activity
+      description: >-
+        A published consultation or engagement activity. Field groups follow the
+        `fields` parameter: basic fields are always present, fields marked
+        extended require fields=extended or above, fields marked all require
+        fields=all.
+      properties:
+        id:
+          type: string
+          description: The ID of the activity
+        title:
+          type: string
+          description: The title of the activity
+        url:
+          type: string
+          description: The URL of the activity
+        status:
+          type: string
+          enum: [open, forthcoming, closed]
+          description: 'State: one of `open`, `forthcoming` or `closed`'
+        overview:
+          type: string
+          description: Overview of the activity (HTML)
+        startdate:
+          type: string
+          description: The date the activity opens / opened on (observed format yyyy/mm/dd)
+        enddate:
+          type: string
+          description: The date the activity closes / closed on (observed format yyyy/mm/dd)
+        activity_type:
+          type: string
+          description: The activity type ID
+        workspace_title:
+          type: string
+          description: The title of the workspace that the activity belongs to (extended and above)
+        workspace_id:
+          type: string
+          description: The ID of the workspace that the activity belongs to (extended and above)
+        department:
+          type: string
+          deprecated: true
+          description: (deprecated) The name of the department that the activity belongs to (extended and above)
+        dept:
+          type: string
+          deprecated: true
+          description: (deprecated) The ID of the department that the activity belongs to (extended and above)
+        type_string:
+          type: string
+          description: Human readable activity type (extended and above)
+        type:
+          type: string
+          deprecated: true
+          description: (deprecated) The legacy type (extended and above)
+        participate_url:
+          type: string
+          x-doc-name: participation_url
+          description: >-
+            The direct URL to the participation method (survey etc), skipping the
+            overview page (extended and above). The published reference names this
+            field `participation_url`; the live 2.4 response emits
+            `participate_url` — verified 2026-07-28.
+        progress:
+          type: string
+          description: The current state of the activity (extended and above)
+        visibility:
+          type: string
+          enum: [public, private]
+          description: Either 'public' or 'private' depending on if the activity has been hidden from end users (extended and above)
+        why:
+          type: [string, 'null']
+          description: The contents of the 'why are we consulting?' field (all only)
+        what_happens_next:
+          type: [string, 'null']
+          description: The contents of the 'what happens next?' field (all only)
+        feedbackdate:
+          type: string
+          description: The date that activity feedback is/was expected (all only)
+        resultdate:
+          type: string
+          x-doc-name: resultsdate
+          description: >-
+            The date that activity results are/were expected (all only). The
+            published reference names this field `resultsdate`; the live 2.4
+            response emits `resultdate` — verified 2026-07-28.
+        contact_name:
+          type: string
+          description: The full name entered in the activity's contact details (all only)
+        contact_jobtitle:
+          type: string
+          description: The job title entered in the activity's contact details (all only)
+        contact_team:
+          type: string
+          description: The team name entered in the activity's contact details (all only)
+        contact_phone:
+          type: string
+          description: The phone number entered in the activity's contact details (all only)
+        contact_email:
+          type: string
+          description: The email address entered in the activity's contact details (all only)
+        related_links:
+          type: array
+          description: A list of related links (all only)
+          items:
+            $ref: '#/components/schemas/RelatedLink'
+        related_consultations:
+          type: array
+          description: A list of related activities (all only)
+          items:
+            $ref: '#/components/schemas/RelatedLink'
+        supporting_documents:
+          type: array
+          description: A list of supporting documents (all only)
+          items:
+            $ref: '#/components/schemas/SupportingDocument'
+        audiences:
+          type: array
+          description: A list of audiences this activity applies to (all only)
+          items:
+            $ref: '#/components/schemas/Term'
+        areas:
+          type: array
+          description: >-
+            A list of ids for areas this activity applies to. NB: This field is
+            omitted unless area support is installed (all only)
+          items:
+            $ref: '#/components/schemas/Term'
+        interests:
+          type: array
+          description: A list of ids for interests this activity applies to (all only)
+          items:
+            $ref: '#/components/schemas/Term'
+    RelatedLink:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The absolute url to link to
+        title:
+          type: string
+          description: The human-readable title of the link. Used for display.
+    SupportingDocument:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The absolute url to link to
+        title:
+          type: string
+          description: >-
+            The human-readable title of the document, or filename if title was not
+            specified. Used for display.
+        size:
+          type: string
+          description: The size of the document including units (eg kB, MB). Used for display.
+    Term:
+      type: object
+      description: An audience, area or interest term.
+      properties:
+        id:
+          type: string
+          description: The ID of the term. Used for searching.
+        name:
+          type: string
+          description: The human-readable name of the term. Used for display.

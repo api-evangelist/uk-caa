@@ -1,0 +1,12 @@
+generated: '2026-07-28'
+method: derived
+source: derived from the arazzo/*.yml files in this repo
+workflows:
+  - file: uk-caa-track-consultations.yml
+    workflowId: search-and-open-caa-consultation
+    title: Track UK CAA consultations
+    summary: >-
+      Search the UK Civil Aviation Authority's published consultation activities,
+      then pull the full detail record for the first match. Read-only, no auth.
+    api: openapi/uk-caa-consultations-api-openapi.yml
+    operations: [json_search_results, json_consultation_details]

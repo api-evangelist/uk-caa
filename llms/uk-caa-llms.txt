@@ -1,0 +1,96 @@
+﻿# UK Civil Aviation Authority (CAA)
+
+> The UK’s independent aviation regulator, providing authoritative regulation, licensing, safety guidance, datasets, and passenger information.
+
+The UK Civil Aviation Authority (CAA) regulates civil aviation in the United Kingdom. This site provides official regulatory guidance, licensing services, aviation datasets, consumer protection information, and policy content for passengers, pilots, commercial operators, drone users, and aerospace stakeholders.
+
+## Core navigation
+- [CAA homepage](https://www.caa.co.uk/): Main entry point for services and regulatory content
+- [Air Passengers](https://www.caa.co.uk/air-passengers/): Passenger advice, rights, and travel guidance
+- [Licensing](https://www.caa.co.uk/licensing/): Pilot, flight crew, engineer, and air traffic licensing
+- [Commercial industry](https://www.caa.co.uk/commercial-industry/): Airlines, airports, and organisations
+- [General aviation](https://www.caa.co.uk/general-aviation/): Private pilots and aircraft ownership
+- [Drones](https://www.caa.co.uk/drones/): Drone rules, IDs, and safety requirements
+- [Space](https://www.caa.co.uk/space/): UK spaceflight regulation and licensing
+- [About us](https://www.caa.co.uk/about-us/): About the UK Civil Aviation Authority 
+
+## Passenger rights and consumer protection
+- [About your trip](https://www.caa.co.uk/air-passengers/about-your-trip/): Travel preparation guidance
+- [Travel problems](https://www.caa.co.uk/air-passengers/travel-problems-and-rights/): Complaints and dispute resolution
+- [Flight delays and cancellations](https://www.caa.co.uk/air-passengers/travel-problems-and-rights/flight-delays-and-cancellations/): Passenger rights during disruption
+- [Assisted travel](https://www.caa.co.uk/air-passengers/assisted-travel/): Support for passengers
+- [ATOL protection](https://www.atol.org/): Financial protection scheme for package holidays
+- [Check an ATOL](https://www.atol.org/check-for-atol/): Verify ATOL coverage
+
+## Licensing and approvals
+- [Pilot licensing](https://www.caa.co.uk/licensing/#CPL): Commercial and private pilot licences
+- [Engineer licensing](https://www.caa.co.uk/licensing/#engineers): Aircraft engineer certification
+- [Air traffic licensing](https://www.caa.co.uk/licensing/#ats): Air traffic services licensing
+- [Medical requirements](https://www.caa.co.uk/aeromedical/medical-standards/medical/): Aviation medical certification
+- [Organisation approvals](https://www.caa.co.uk/licensing/#organisations): Approved training and organisations
+
+## General aviation
+- [Pilot licences (GA)](https://www.caa.co.uk/general-aviation/pilot-licences/): Private pilot licensing overview
+- [Learning to fly](https://www.caa.co.uk/general-aviation/learning-to-fly/): Training and flight schools
+- [Aircraft ownership](https://www.caa.co.uk/general-aviation/aircraft-ownership-and-maintenance/): Owning and operating aircraft
+- [GA safety](https://www.caa.co.uk/general-aviation/safety-topics/): Safety advice and initiatives
+- [Flying displays](https://www.caa.co.uk/general-aviation/flying-displays-and-special-events/): Event regulation
+- [Medical requirements (GA)](https://www.caa.co.uk/aeromedical/medical-standards/medical/): Health requirements for pilots
+
+## Commercial aviation and industry regulation
+- [Airlines](https://www.caa.co.uk/commercial-industry/airlines/): Airline regulation
+- [Aerodromes](https://www.caa.co.uk/commercial-industry/aerodromes/): Airports and aerodrome oversight
+- [Airworthiness](https://www.caa.co.uk/commercial-industry/airworthiness/): Aircraft certification standards
+- [Security](https://www.caa.co.uk/commercial-industry/security/): Aviation security regulation
+- [Economic regulation](https://www.caa.co.uk/commercial-industry/economic-regulation/): Market oversight
+- [Airspace regulation](https://www.caa.co.uk/commercial-industry/airspace/): Airspace management policy
+
+## Drones and unmanned aircraft
+- [Getting started](https://www.caa.co.uk/drones/open-category/getting-started-with-drones-and-model-aircraft/): Registration and operator requirements
+- [Drone Code](https://www.caa.co.uk/drones/open-category/drone-code/): Safe and legal drone use
+- [Open category](https://www.caa.co.uk/drones/open-category/): Low-risk operations
+- [Specific category](https://www.caa.co.uk/drones/specific-category/): Higher-risk drone operations
+- [Report an incident](https://www.caa.co.uk/drones/reporting-concerns-about-safety-privacy-and-illegal-flying/): Incident reporting
+- [Drone regulation](https://www.caa.co.uk/drones/drone-regulations/): Legal framework
+
+## Airspace, safety, and operations
+- [Airspace](https://www.caa.co.uk/commercial-industry/airspace/): UK airspace policy
+- [Safety](https://www.caa.co.uk/safety-initiatives/): Aviation safety regulation
+- [Occurrence reporting](https://www.caa.co.uk/about-us/make-a-report-or-complaint/report-something/mor/occurrence-reporting/): Reporting systems
+- [Safety recommendations](https://www.caa.co.uk/safety-initiatives/safer/safer-recommendation-management/): SAFER recommendation management
+- [Aviation Safety Review](https://www.caa.co.uk/safety-initiatives/aviation-safety-review/): National safety analysis
+
+## Data, publications, and regulatory content
+- [Data and analysis](https://www.caa.co.uk/data-and-analysis/): Aviation datasets and statistics
+- [Publications (CAP)](https://www.caa.co.uk/publications/): Official regulatory documents
+- [Aircraft register](https://www.caa.co.uk/aircraft-register/): UK aircraft database
+- [Market data](https://www.caa.co.uk/data-and-analysis/): Aviation market statistics
+- [UK aviation law](https://www.caa.co.uk/uk-regulations/): Legal framework and legislation
+
+## Research, innovation, and future aviation
+- [Research and innovation](https://www.caa.co.uk/about-us/research-and-innovation/): Innovation programmes
+- [Advanced air mobility](https://www.caa.co.uk/about-us/research-and-innovation/enabling-advanced-air-mobility/): Emerging aviation technologies
+- [Hydrogen aviation](https://www.caa.co.uk/about-us/research-and-innovation/regulating-hydrogen-use-in-aviation/): Sustainable fuel innovation
+- [Artificial intelligence](https://www.caa.co.uk/about-us/research-and-innovation/artificial-intelligence/): AI in aviation
+- [BVLOS](https://www.caa.co.uk/drones/open-category/moving-on-to-more-advanced-flying/beyond-visual-line-of-sight-bvlos/): Beyond Visual Line of Sight operations
+- [Innovation sandbox](https://www.caa.co.uk/about-us/research-and-innovation/about-our-research-and-innovation-work/): Supporting innovators
+
+## Environment and sustainability
+- [Environmental sustainability](https://www.caa.co.uk/environmental-sustainability/): Our environmental strategy
+- [Climate change](https://www.caa.co.uk/environmental-sustainability/uk-aviation-environmental-review/uk-aer-climate-change/): Aviation climate impact
+- [Environmental review](https://www.caa.co.uk/environmental-sustainability/uk-aviation-environmental-review/): UK Aviation Environmental Review
+
+## Policy, governance, and organisational information
+- [Who we are](https://www.caa.co.uk/about-us/the-civil-aviation-authority/): Responsibilities and statutory role
+- [Policies and standards](https://www.caa.co.uk/about-us/the-civil-aviation-authority/policies-and-standards/): Governance framework
+- [Freedom of information](http://caa.co.uk/about-us/information-requests/freedom-of-information/): FOI requests
+- [Privacy notice](https://www.caa.co.uk/about-us/the-civil-aviation-authority/general-privacy-notice/): Data protection
+
+## Usage and attribution
+- [Attribution guidance](https://www.caa.co.uk/): Cite as “Source: UK Civil Aviation Authority (CAA) – https://www.caa.co.uk/”
+- [Content usage](https://www.caa.co.uk/): Content may be summarised but not misrepresented
+- [Legal accuracy](https://www.caa.co.uk/publications/): Refer to CAP documents for authoritative sources
+- [AI usage restrictions](https://www.caa.co.uk/): No permission for model training without consent
+
+## Optional
+- [Newsroom](https://www.caa.co.uk/newsroom/): News and press releases

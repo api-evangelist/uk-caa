@@ -1,0 +1,142 @@
+generated: '2026-07-28'
+method: derived
+source: >-
+  openapi/uk-caa-consultations-api-openapi.yml ,
+  well-known/uk-caa-well-known.yml , security/uk-caa-domain-security.yml ,
+  conventions/uk-caa-conventions.yml , and live probes recorded in review.yml
+  (2026-07-28).
+description: >-
+  Which cross-cutting and industry standards the UK Civil Aviation Authority's
+  published API surface actually conforms to. Derived from the artifacts already in
+  this repo plus the probe log; no compliance claim is asserted that the CAA has not
+  published or that was not directly observed. Note the split personality: the CAA
+  is the UK's aeronautical-information regulator, yet publishes none of the aviation
+  data-exchange standards it oversees.
+standards:
+  - id: rfc9116-security-txt
+    conforms: true
+    evidence: >-
+      https://www.caa.co.uk/.well-known/security.txt returns 200 text/plain with
+      Contact:, Expires: (2027-04-01T12:30:00.000Z) and Policy: fields. Saved
+      verbatim at well-known/uk-caa-security.txt.
+  - id: llmstxt
+    conforms: true
+    evidence: >-
+      https://www.caa.co.uk/llms.txt returns 200 text/plain (8,201 bytes) in
+      llms.txt format — H1, blockquote summary, sectioned link lists — and
+      https://www.atol.org/llms.txt returns 200 (12,338 bytes). Both saved verbatim
+      under llms/.
+  - id: https-tls
+    conforms: true
+    evidence: >-
+      TLSv1.3 on www.caa.co.uk, consultations.caa.co.uk and portal.caa.co.uk;
+      see security/uk-caa-domain-security.yml.
+  - id: hsts
+    conforms: partial
+    evidence: >-
+      HSTS present on www.caa.co.uk (max-age 63072000) and consultations.caa.co.uk
+      (max-age 31536000); absent on portal.caa.co.uk.
+  - id: dmarc
+    conforms: true
+    evidence: 'caa.co.uk DMARC policy p=reject with rua and ruf reporting addresses.'
+  - id: spf
+    conforms: true
+    evidence: caa.co.uk publishes an SPF record ending -all.
+  - id: dnssec
+    conforms: false
+    evidence: No DNSKEY record for caa.co.uk.
+  - id: caa-dns-record
+    conforms: false
+    evidence: No CAA DNS record for caa.co.uk.
+  - id: openapi
+    conforms: false
+    evidence: >-
+      The CAA publishes no OpenAPI. Every discovery path was probed —
+      /openapi.json, /openapi.yaml, /swagger.json, /api-docs, /docs on
+      consultations.caa.co.uk, /swagger/v1/swagger.json and /openapi.json on
+      ginfoapi.caa.co.uk and aircraftapi.caa.co.uk, plus developer.caa.co.uk,
+      developers.caa.co.uk, api.caa.co.uk, docs.caa.co.uk, data.caa.co.uk and
+      opendata.caa.co.uk (all NXDOMAIN). The OpenAPI in this repo was written by API
+      Evangelist from the CAA's published reference page, not by the CAA.
+  - id: asyncapi
+    conforms: false
+    evidence: No event, streaming or webhook surface of any kind was found. Not applicable.
+  - id: graphql
+    conforms: false
+    evidence: https://consultations.caa.co.uk/graphql returns 404; no GraphQL surface found on any CAA host.
+  - id: mcp
+    conforms: false
+    evidence: No hosted or remote MCP server is published by the CAA.
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      No securitySchemes of type oauth2 anywhere; /.well-known/oauth-authorization-server
+      returns 404 on every CAA host. The one documented API requires no authentication at all.
+  - id: oidc
+    conforms: false
+    evidence: >-
+      /.well-known/openid-configuration returns 404 on every CAA host including
+      portal.caa.co.uk, which uses ADFS WS-Federation rather than OIDC.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      No application/problem+json anywhere. The single documented error is a bare
+      404 status with an HTML body. See errors/uk-caa-problem-types.yml.
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: No Sunset or Deprecation header, and no deprecation policy page. See lifecycle/uk-caa-lifecycle.yml.
+  - id: idempotency-key
+    conforms: not-applicable
+    evidence: The API is read-only (GET only); there is no write surface to make idempotent.
+  - id: pagination
+    conforms: false
+    evidence: >-
+      No page, offset, limit, cursor or next-link parameter in any version 2.0-2.4;
+      the full result set is returned in one array.
+  - id: cors
+    conforms: true
+    evidence: >-
+      The consultations API returns access-control-allow-origin: * . The two
+      undocumented aviation backends deliberately do not — they pin the header to
+      https://www.caa.co.uk.
+  - id: jsonp
+    conforms: partial
+    evidence: A `callback` parameter is documented for version 2.3 only; it is not listed for 2.4.
+  - id: aixm
+    conforms: false
+    evidence: >-
+      The CAA regulates the UK Aeronautical Information Service but publishes no
+      AIXM, no digital AIP and no NOTAM service. The UK AIP is operated by NATS at
+      nats-uk.ead-it.com, not by the CAA.
+  - id: ogc-inspire
+    conforms: false
+    evidence: No OGC, WFS, WMS or INSPIRE endpoint on any caa.co.uk domain.
+  - id: odata
+    conforms: false
+    evidence: No OData service found.
+  - id: ckan
+    conforms: partial
+    evidence: >-
+      The CAA runs no CKAN instance of its own. Eight CAA datasets are catalogued on
+      data.gov.uk's CKAN (organization id civil-aviation-authority), whose resource
+      URLs point at dead legacy caa.co.uk .aspx addresses.
+  - id: open-government-licence
+    conforms: false
+    evidence: >-
+      data.gov.uk records the licence for UK Airport Statistics as "License not
+      specified" (license_id "notspecified"), and the CAA's own statistics pages
+      state "No statistical data provided by CAA maybe sold on to a third party."
+      Despite the CAA being a public corporation, its data is not OGL-licensed.
+  - id: robots-txt
+    conforms: false
+    evidence: https://www.caa.co.uk/robots.txt returns the site 404 page; no robots.txt is served.
+compliance_program:
+  published: false
+  certifications: []
+  trust_center: null
+  note: >-
+    No SOC 2, ISO 27001, PCI DSS, Cyber Essentials or equivalent certification is
+    published on any CAA domain, and probe-security-programs.py found no trust
+    centre (trust.caa.co.uk, security.caa.co.uk, /trust, /compliance all miss). No
+    Compliance pointer is emitted. The CAA's published governance is regulatory
+    (ATOL, ANO, UK Reg (EU) 2018/1139) rather than an infosec certification posture.

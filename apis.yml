@@ -61,10 +61,66 @@ apis:
   - type: Documentation
     url: https://consultations.caa.co.uk/api/
   - type: APIReference
+    url: https://consultations.caa.co.uk/api/2.4/
+  - type: APIReference
     url: https://consultations.caa.co.uk/api/2.3/
+  - type: GettingStarted
+    name: API v2.x Developers' Guide
+    url: https://help.delib.net/article/350-api-v2-x-developers-guide
+  - type: OpenAPI
+    name: CAA Consultations API 2.4 (transcribed by API Evangelist from the published reference)
+    url: openapi/uk-caa-consultations-api-openapi.yml
+  - type: Overlay
+    url: overlays/uk-caa-consultations-api-overlay.yaml
+  - type: Examples
+    name: Verified live json_search_results response (st=open, fields=all)
+    url: examples/uk-caa-json-search-results-open-all.json
+  - type: Examples
+    name: Verified live json_consultation_details response (fields=all)
+    url: examples/uk-caa-json-consultation-details-all.json
   - type: Website
     url: https://consultations.caa.co.uk/
 common:
+- type: AgenticAccess
+  url: agentic-access/uk-caa-agentic-access.yml
+- type: VulnerabilityDisclosure
+  url: security/uk-caa-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/uk-caa-domain-security.yml
+- type: Security
+  name: CAA Vulnerability Disclosure Policy
+  url: https://www.caa.co.uk/website-policies/vulnerability-disclosure-policy/
+- type: WellKnown
+  url: well-known/uk-caa-well-known.yml
+- type: SecurityTxt
+  name: security.txt captured verbatim 2026-07-28
+  url: well-known/uk-caa-security.txt
+- type: LLMsTxt
+  name: CAA llms.txt (provider-published, captured verbatim)
+  url: llms/uk-caa-llms.txt
+- type: LLMsTxt
+  name: ATOL llms.txt (provider-published, captured verbatim)
+  url: llms/uk-caa-atol-llms.txt
+- type: Authentication
+  url: authentication/uk-caa-authentication.yml
+- type: Conventions
+  url: conventions/uk-caa-conventions.yml
+- type: Lifecycle
+  url: lifecycle/uk-caa-lifecycle.yml
+- type: ChangeLog
+  name: Citizen Space API version history reconstructed from the 2.0-2.4 reference pages
+  url: changelog/uk-caa-changelog.yml
+- type: Conformance
+  url: conformance/uk-caa-conformance.yml
+- type: ErrorCatalog
+  url: errors/uk-caa-problem-types.yml
+- type: DataModel
+  url: data-model/uk-caa-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Arazzo
+  name: Track UK CAA consultations
+  url: arazzo/uk-caa-track-consultations.yml
 - type: Website
   url: https://www.caa.co.uk/
 - type: Documentation
@@ -83,8 +139,16 @@ common:
   url: https://www.caa.co.uk/website-policies/vulnerability-disclosure-policy/
 - type: SecurityTxt
   url: https://www.caa.co.uk/.well-known/security.txt
-- type: Portal
+- type: CustomerPortal
+  name: CAA Customer Portal — ADFS sign-in for licence and certificate holders. NOT a developer portal; the CAA publishes none.
   url: https://portal.caa.co.uk
+- type: PrivacyPolicy
+  url: https://www.caa.co.uk/about-us/the-civil-aviation-authority/general-privacy-notice/
+- type: Support
+  name: Contact the CAA (general enquiries — there is no developer support channel)
+  url: https://www.caa.co.uk/about-us/information-requests/contact-us/
+- type: Accessibility
+  url: https://www.caa.co.uk/website-policies/accessibility-statement/
 - type: Registry
   url: https://www.caa.co.uk/aircraft-register/g-info/search-g-info/
 - type: Registry

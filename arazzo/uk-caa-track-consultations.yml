@@ -1,0 +1,80 @@
+arazzo: 1.0.1
+info:
+  title: Track UK CAA consultations
+  version: 1.0.0
+  summary: >-
+    Search the UK Civil Aviation Authority's published consultation activities, then
+    pull the full detail record for the first match.
+  description: >-
+    A two-step read-only workflow over the only documented, publicly callable API on
+    a caa.co.uk domain. Both operationIds are verified present in the referenced
+    OpenAPI. No authentication is required at any step.
+sourceDescriptions:
+  - name: consultations
+    url: ../openapi/uk-caa-consultations-api-openapi.yml
+    type: openapi
+workflows:
+  - workflowId: search-and-open-caa-consultation
+    summary: Find an open CAA consultation and retrieve its full record.
+    description: >-
+      Step 1 searches published activities with the documented filters. Step 2 takes
+      the composite key (dept + id) off the first result and fetches that activity at
+      the `all` field tier, which adds the contact details, supporting documents,
+      audiences, interests and the "why are we consulting?" narrative.
+    inputs:
+      type: object
+      properties:
+        state:
+          type: string
+          description: Activity state — open, forthcoming or closed.
+          default: open
+        text:
+          type: string
+          description: Optional free-text search across title and overview.
+      required: [state]
+    steps:
+      - stepId: search-activities
+        description: Search published CAA consultation activities.
+        operationId: json_search_results
+        parameters:
+          - name: st
+            in: query
+            value: $inputs.state
+          - name: tx
+            in: query
+            value: $inputs.text
+          - name: fields
+            in: query
+            value: extended
+        successCriteria:
+          - condition: $statusCode == 200
+        outputs:
+          firstDept: $response.body#/0/dept
+          firstId: $response.body#/0/id
+          firstTitle: $response.body#/0/title
+      - stepId: get-activity-detail
+        description: Retrieve the full record for the first activity returned.
+        operationId: json_consultation_details
+        parameters:
+          - name: dept
+            in: query
+            value: $steps.search-activities.outputs.firstDept
+          - name: id
+            in: query
+            value: $steps.search-activities.outputs.firstId
+          - name: fields
+            in: query
+            value: all
+        successCriteria:
+          - condition: $statusCode == 200
+        outputs:
+          title: $response.body#/title
+          enddate: $response.body#/enddate
+          participateUrl: $response.body#/participate_url
+          contactEmail: $response.body#/contact_email
+          supportingDocuments: $response.body#/supporting_documents
+    outputs:
+      title: $steps.get-activity-detail.outputs.title
+      closes: $steps.get-activity-detail.outputs.enddate
+      participateUrl: $steps.get-activity-detail.outputs.participateUrl
+      contactEmail: $steps.get-activity-detail.outputs.contactEmail

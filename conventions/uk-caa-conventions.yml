@@ -1,0 +1,136 @@
+generated: '2026-07-28'
+method: searched
+source: >-
+  https://consultations.caa.co.uk/api/2.4/ ,
+  https://help.delib.net/article/350-api-v2-x-developers-guide , and live response
+  headers captured 2026-07-28.
+api: openapi/uk-caa-consultations-api-openapi.yml
+description: >-
+  Cross-cutting request/response semantics for the only documented, publicly
+  callable API on a UK Civil Aviation Authority domain: the Citizen Space (Delib)
+  consultations API. Everything here is transcribed from the CAA's own version
+  reference page, the vendor developer guide it links to, or from headers observed
+  on a live anonymous request. Where a convention is genuinely absent (idempotency,
+  pagination, rate-limit signalling, request tracing) that absence is recorded as
+  absent rather than filled in.
+authentication:
+  style: none
+  detail: >-
+    Read-only access to publicly visible data; no authentication is required
+    because the access level is the same as a public visitor to the site.
+  artifact: authentication/uk-caa-authentication.yml
+transport:
+  scheme: https
+  methods: [GET]
+  detail: >-
+    "Methods should be called via HTTPS GET requests, using the following format:
+    url_of_citizen_space_instance/api/2.4/methodname?arguments". Arguments are given
+    as url-encoded key/value pairs.
+  content_type: application/json
+  cors: '*'
+  cors_note: >-
+    The consultations API returns access-control-allow-origin: * and is callable
+    from any browser origin. This is the opposite of the two undocumented aviation
+    backends (ginfoapi / aircraftapi), which pin access-control-allow-origin to
+    https://www.caa.co.uk.
+  observed_headers:
+    server: Apache
+    strict-transport-security: max-age=31536000
+    x-content-type-options: nosniff
+    x-frame-options: SAMEORIGIN
+    x-xss-protection: 1; mode=block
+    x-robots-tag: noindex
+    cache-control: no-cache, no-store, must-revalidate
+idempotency:
+  supported: false
+  detail: >-
+    Not applicable and not offered. The API is read-only — the only two methods are
+    GET and there is no write surface, so there is no idempotency key, no
+    Idempotency-Key header and no replay contract. Recorded as absent; no
+    Idempotency pointer is emitted for this provider.
+pagination:
+  supported: false
+  detail: >-
+    No pagination of any kind. json_search_results returns the complete result set
+    in one JSON array; there is no page, offset, limit, cursor or next-link
+    parameter documented in any version 2.0-2.4, and none appears in the live
+    response. Callers filter server-side with the documented search parameters
+    (tx, pc, st, au, in, de, ar, dk, fd, td, at) or client-side after the fetch.
+filtering:
+  supported: true
+  style: query-parameters
+  parameters: [tx, pc, st, au, in, de, ar, dk, fd, td, at, ct]
+  detail: >-
+    "If no arguments are supplied, all published activities are returned. Any
+    unsupported arguments will be ignored." Unknown parameters are silently dropped
+    rather than rejected — clients get no signal that a typo'd filter was ignored.
+field_selection:
+  supported: true
+  parameter: fields
+  values: [basic, extended, all]
+  default: basic
+  detail: >-
+    Sparse-fieldset style tiering. "Determines which groups of metadata fields about
+    the activities will be returned. Permissible values are 'basic', 'extended' and
+    'all'. Omitting this parameter is equivalent to 'basic'." Tiers are cumulative:
+    'all' includes the 'extended' fields.
+  history: >-
+    Version 2.0 used a boolean `extended` parameter ("This will return extra
+    information about each activity, but is slower"); version 2.1 replaced it with
+    the three-valued `fields` parameter.
+jsonp:
+  supported: version-dependent
+  parameter: callback
+  detail: >-
+    Version 2.3 documents a `callback` parameter "used to enable jsonp requests".
+    The version 2.4 reference does not list it. Recorded as documented-for-2.3 only;
+    not carried into the 2.4 OpenAPI.
+versioning:
+  scheme: uri-path
+  current: '2.4'
+  concurrent: ['2.0', '2.1', '2.2', '2.3', '2.4']
+  detail: >-
+    Every published version is served concurrently at
+    https://consultations.caa.co.uk/api/<version>/ and each has its own reference
+    page. Old versions are not retired; 2.5 returns 404. No version header, no date
+    pinning, no default-version redirect.
+  artifact: lifecycle/uk-caa-lifecycle.yml
+error_envelope:
+  format: http-status-only
+  detail: >-
+    There is no error envelope. The only documented error is verbatim: "If dept or
+    id are not specified or do not exist, a 404 status code is returned." No
+    application/problem+json, no RFC 9457, no error code, message or correlation id
+    in the body. The vendor guide's own example advises clients to branch on
+    `result.status_code < 400`.
+  artifact: errors/uk-caa-problem-types.yml
+rate_limiting:
+  documented: false
+  signalling: none
+  detail: >-
+    No rate-limit policy, quota or plan is published for this API, and no
+    X-RateLimit-*, RateLimit-* or Retry-After header appears on a live response.
+    The vendor guide instead states that server-side integration "is the preferred
+    method of integration with the Citizen Space API. Caching of results is
+    permitted."
+request_tracing:
+  supported: false
+  detail: No request-id or correlation-id header is returned.
+caching:
+  detail: >-
+    The API itself sends Cache-Control: no-cache, no-store, must-revalidate, but the
+    vendor guide explicitly permits client-side caching of results. Server-side
+    integration with a client cache is the documented preferred pattern.
+known_limitations:
+  - >-
+    "The contents of surveys is not currently available via the API." (vendor
+    developer guide, verbatim)
+  - >-
+    Field-name divergence between the published reference and the live 2.4 response:
+    the docs name `participation_url` and `resultsdate`; the live response emits
+    `participate_url` and `resultdate`. Verified 2026-07-28 and recorded in the
+    OpenAPI as x-doc-name.
+  - >-
+    This is the consultation-platform vendor's API, not a CAA aviation data API. No
+    aircraft register, ATOL, punctuality or airport-statistics data is reachable
+    through it.

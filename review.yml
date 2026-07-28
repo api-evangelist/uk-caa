@@ -398,11 +398,74 @@ sources:
 
 actions:
   openapiHarvested: false
-  specsCount: 0
-  openapiDirectory: null
+  openapiTranscribed: true
+  specsCount: 1
+  openapiDirectory: openapi/
   reason: |
     No OpenAPI, Swagger, AsyncAPI, Postman collection or machine-readable API
     description of any kind is published by the UK CAA or by the Citizen Space
     deployment on its consultations domain. Nothing was fabricated or derived.
     Every URL in this file was probed on 2026-07-28 and its HTTP status recorded.
+
+    Enrichment round 2026-07-28: openapi/uk-caa-consultations-api-openapi.yml was
+    TRANSCRIBED by API Evangelist from the CAA's own published HTML reference at
+    https://consultations.caa.co.uk/api/2.4/ — every parameter name, allowed value,
+    description and response field copied verbatim, then cross-checked against a
+    live anonymous response. It is not a CAA artifact and carries x-evidence saying
+    so. openapiHarvested stays false because the CAA still publishes no spec.
   apisYmlUpdated: true
+
+enrichment:
+  round: '2026-07-28'
+  newFindings:
+  - url: https://www.caa.co.uk/llms.txt
+    status: 200
+    note: |
+      NEW — not found in the first round. A real, provider-published llms.txt
+      (8,201 bytes, text/plain) in correct llms.txt format, linked from nowhere in
+      the CAA's own navigation. Carries an explicit AI-usage section ("No permission
+      for model training without consent") and an attribution instruction ("Source:
+      UK Civil Aviation Authority (CAA)"). Saved verbatim to llms/uk-caa-llms.txt.
+  - url: https://www.atol.org/llms.txt
+    status: 200
+    note: |
+      NEW — a second provider-published llms.txt (12,338 bytes) on the CAA's ATOL
+      consumer site, which is where the CAA's own llms.txt sends readers for ATOL
+      protection and Check an ATOL. Saved verbatim to llms/uk-caa-atol-llms.txt.
+  - url: https://help.delib.net/article/350-api-v2-x-developers-guide
+    status: 200
+    note: |
+      The vendor developer guide the CAA's own API reference links to. States
+      verbatim that "no authentication is required as the access level is the same
+      as a public visitor to the site", that caching of results is permitted, and
+      that "the contents of surveys is not currently available via the API".
+  - url: https://consultations.caa.co.uk/api/2.4/json_consultation_details?dept=nope&id=nope
+    status: 404
+    note: Confirms the one documented error in the estate. No JSON error body.
+  - url: https://www.atol.org/.well-known/security.txt
+    status: 404
+  - url: https://status.caa.co.uk/
+    status: 000
+    note: DNS does not resolve. No status page exists; no StatusPage pointer emitted.
+  - url: https://api.github.com/orgs/ukcaa
+    status: 404
+    note: Re-confirmed via the GitHub API. uk-caa and civilaviationauthority also 404.
+  observed:
+    consultationsApiResponseHeaders:
+      access-control-allow-origin: '*'
+      strict-transport-security: max-age=31536000
+      x-content-type-options: nosniff
+      x-frame-options: SAMEORIGIN
+      x-robots-tag: noindex
+      rate-limit-headers: none
+    fieldNameDivergence: |
+      The published reference documents participation_url and resultsdate; the live
+      2.4 response emits participate_url and resultdate. Verified 2026-07-28 and
+      recorded in the OpenAPI as x-doc-name.
+  notFound:
+  - No first-party SDK or client library on npm, PyPI, Maven Central, NuGet, pkg.go.dev, RubyGems, Packagist or crates.io.
+  - No public Postman workspace or collection.
+  - No MCP server, no GraphQL endpoint, no AsyncAPI, no webhooks, no .proto.
+  - No status page, no SLA, no deprecation policy, no rate-limit policy, no API terms of service.
+  - No trust centre and no published certifications (SOC 2 / ISO 27001 / PCI / Cyber Essentials).
+  - No roadmap, no developer portal, no API pricing or signup.

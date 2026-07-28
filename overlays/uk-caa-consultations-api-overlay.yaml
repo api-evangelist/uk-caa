@@ -1,0 +1,74 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the CAA Consultations API
+  version: 1.0.0
+extends: openapi/uk-caa-consultations-api-openapi.yml
+x-generated: '2026-07-28'
+x-method: generated
+x-source: >-
+  API Evangelist enrichment pipeline. Captures the annotations we add on top of the
+  transcribed CAA reference, so the transcription itself stays a clean mirror of
+  https://consultations.caa.co.uk/api/2.4/ .
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-aid: uk-caa:caa-consultations-api
+      x-apievangelist-provider: uk-caa
+      x-apievangelist-provider-kind: regulator
+      x-apievangelist-home-market: United Kingdom
+      x-apievangelist-spec-origin: >-
+        Transcribed by API Evangelist from the provider's published HTML reference.
+        The UK CAA publishes no OpenAPI.
+      x-apievangelist-artifacts:
+        conventions: conventions/uk-caa-conventions.yml
+        authentication: authentication/uk-caa-authentication.yml
+        errors: errors/uk-caa-problem-types.yml
+        lifecycle: lifecycle/uk-caa-lifecycle.yml
+        changelog: changelog/uk-caa-changelog.yml
+        data_model: data-model/uk-caa-data-model.yml
+        conformance: conformance/uk-caa-conformance.yml
+        agentic_access: agentic-access/uk-caa-agentic-access.yml
+        skills: skills/_index.yml
+        examples: examples/
+  - target: $.info
+    update:
+      x-apievangelist-caveat: >-
+        This is the consultation-platform vendor's API deployed on a CAA domain, not
+        a CAA aviation data API. It carries no aircraft register, ATOL, punctuality
+        or airport statistics data.
+  - target: $.paths['/json_search_results'].get
+    update:
+      x-agentic-access:
+        action-class: connected
+        consequence: read
+        subject: optional
+        token:
+          max-ttl: 3600
+        audit: none
+      x-apievangelist-notes:
+        - No pagination — the complete result set is returned in one array.
+        - Unsupported arguments are silently ignored, so a misspelt filter returns 200 with the wrong result set.
+        - Caching of results is permitted by the vendor developer guide; server-side integration is the documented preferred pattern.
+      x-example-response: examples/uk-caa-json-search-results-open-all.json
+  - target: $.paths['/json_consultation_details'].get
+    update:
+      x-agentic-access:
+        action-class: connected
+        consequence: read
+        subject: optional
+        token:
+          max-ttl: 3600
+        audit: none
+      x-apievangelist-notes:
+        - dept and id together form the composite key; both come from a json_search_results response.
+        - The documented 404 has no body schema — branch on status code, not on a parsed error.
+      x-example-response: examples/uk-caa-json-consultation-details-all.json
+  - target: $.components.schemas.Activity
+    update:
+      x-apievangelist-field-name-divergence:
+        - documented: participation_url
+          observed: participate_url
+          verified: '2026-07-28'
+        - documented: resultsdate
+          observed: resultdate
+          verified: '2026-07-28'

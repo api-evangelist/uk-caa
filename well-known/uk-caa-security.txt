@@ -1,0 +1,3 @@
+﻿Contact: Submit reports via the Vulnerability Reporting Form: https://www.caa.co.uk/website-policies/vulnerability-disclosure-policy/
+Expires: 2027-04-01T12:30:00.000Z
+Policy: https://www.caa.co.uk/website-policies/vulnerability-disclosure-policy/
