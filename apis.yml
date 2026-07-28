@@ -1,0 +1,108 @@
+aid: uk-caa
+url: https://raw.githubusercontent.com/api-evangelist/uk-caa/refs/heads/main/apis.yml
+name: UK Civil Aviation Authority
+kind: company
+description: >-
+  The UK Civil Aviation Authority (CAA) is the United Kingdom's independent
+  aviation regulator and a public corporation of the Department for Transport. It
+  licenses UK airlines, registers UK civil aircraft on the G-INFO register, regulates
+  airspace and airports, economically regulates Heathrow and Gatwick, enforces UK
+  air passenger rights, and — the part that matters most to travel distribution —
+  runs the Air Travel Organiser's Licence (ATOL) scheme, which is the statutory gate
+  every business selling flight-inclusive packages to UK consumers must pass through,
+  including sellers established outside the UK. The CAA sits above the distribution
+  chain rather than inside it: it does not distribute inventory, does not operate a
+  GDS or NDC connection, and has no NDC posture of its own. Its API posture is thin
+  and honest to record — there is no developer portal, no OpenAPI, and no published
+  aviation data API. The only documented, self-serve, key-free public API on a CAA
+  domain is the Citizen Space (Delib) consultation API at consultations.caa.co.uk/api,
+  a vendor platform API rather than an aviation data API. The aviation surfaces that
+  do exist — the G-INFO aircraft register search and the Check an ATOL search — are
+  undocumented ASP.NET JSON backends whose CORS policy is locked to www.caa.co.uk
+  and which are reCAPTCHA-gated. Bulk aviation data is delivered as CSV, PDF and
+  XLSX files behind opaque GUID download URLs, and the full G-INFO aircraft register
+  is a paid subscription emailed as an MS Excel file licensed for use on a single PC.
+  Home market is the United Kingdom.
+image: https://www.caa.co.uk/apple-touch-icon.png
+tags:
+- Travel
+- United Kingdom
+- Aviation
+- Airline
+- Airports
+- Regulator
+- Government
+- Distribution
+- Consumer Protection
+- Open Data
+created: '2026-07-28'
+modified: '2026-07-28'
+specificationVersion: '0.19'
+apis:
+- aid: uk-caa:caa-consultations-api
+  name: CAA Consultations API
+  description: >-
+    The Citizen Space (Delib) public consultation API deployed on the CAA's
+    consultations domain. Two documented methods — json_search_results and
+    json_consultation_details — return published CAA consultation activities as JSON
+    with no API key and no signup. Versions 2.0 through 2.4 are served concurrently.
+    Verified live 2026-07-28 (HTTP 200, JSON array). This is the only documented,
+    publicly callable API on a caa.co.uk domain; it is the vendor's platform API,
+    not a CAA aviation data API.
+  humanURL: https://consultations.caa.co.uk/api/2.4/
+  baseURL: https://consultations.caa.co.uk/api/2.4
+  tags:
+  - Consultations
+  - Government
+  - United Kingdom
+  properties:
+  - type: Documentation
+    url: https://consultations.caa.co.uk/api/2.4/
+  - type: Documentation
+    url: https://consultations.caa.co.uk/api/
+  - type: APIReference
+    url: https://consultations.caa.co.uk/api/2.3/
+  - type: Website
+    url: https://consultations.caa.co.uk/
+common:
+- type: Website
+  url: https://www.caa.co.uk/
+- type: Documentation
+  url: https://www.caa.co.uk/data-and-analysis/
+- type: Blog
+  url: https://www.caa.co.uk/newsroom/news/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/civil-aviation-authority
+- type: X
+  url: https://x.com/UK_CAA
+- type: YouTube
+  url: https://www.youtube.com/user/UKCAA
+- type: Instagram
+  url: https://www.instagram.com/uk.caa
+- type: VulnerabilityDisclosure
+  url: https://www.caa.co.uk/website-policies/vulnerability-disclosure-policy/
+- type: SecurityTxt
+  url: https://www.caa.co.uk/.well-known/security.txt
+- type: Portal
+  url: https://portal.caa.co.uk
+- type: Registry
+  url: https://www.caa.co.uk/aircraft-register/g-info/search-g-info/
+- type: Registry
+  url: https://www.caa.co.uk/atol-protection/check-an-atol/search-atol-holders/
+- type: Dataset
+  url: https://www.caa.co.uk/data-and-analysis/uk-aviation-market/airports/uk-airport-data/
+- type: Dataset
+  url: https://www.caa.co.uk/data-and-analysis/uk-aviation-market/flight-punctuality/uk-flight-punctuality-statistics/
+- type: Dataset
+  url: https://www.caa.co.uk/atol-protection/check-an-atol/atol-reports/
+- type: Dataset
+  url: https://ckan.publishing.service.gov.uk/api/3/action/organization_show?id=civil-aviation-authority
+- type: Legal
+  url: https://www.caa.co.uk/atol-protection/atol-requirements-for-the-travel-industry/do-i-need-an-atol/
+- type: Legal
+  url: https://www.caa.co.uk/atol-protection/atol-compliance/requirements-legal-obligations/airline-ticket-agents/
+- type: Legal
+  url: https://www.caa.co.uk/about-us/information-requests/accessing-information-held-by-the-caa/
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

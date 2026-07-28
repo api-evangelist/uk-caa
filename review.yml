@@ -1,0 +1,408 @@
+aid: uk-caa
+name: UK Civil Aviation Authority
+review:
+  question: Does the UK Civil Aviation Authority publish a public developer portal
+    or documented API for its aviation data, and what would it cost a customer to
+    leave?
+  answer: partial
+  date: '2026-07-28'
+  reviewer: API Evangelist
+  tier: regulator
+  homeMarket: United Kingdom
+  primaryDomain: caa.co.uk
+
+findings:
+  summary: |
+    The UK CAA publishes no developer portal, no OpenAPI, no AsyncAPI, and no
+    documented aviation data API. Every conventional developer entry point was
+    probed and none resolved: developer.caa.co.uk, developers.caa.co.uk,
+    api.caa.co.uk and docs.caa.co.uk do not resolve in DNS (curl exit 000);
+    /api, /developers, /docs, /openapi.json, /swagger.json and /api-docs on
+    www.caa.co.uk all return HTTP 404.
+
+    Exactly one documented, self-serve, key-free public API exists on a CAA
+    domain: the Citizen Space (Delib) consultation API at
+    https://consultations.caa.co.uk/api/ — versions 2.0 through 2.4, methods
+    json_search_results and json_consultation_details, verified live and
+    returning a JSON array. It is the vendor's platform API, deployed for the
+    CAA, and it is about consultations, not aviation.
+
+    The two aviation surfaces that do speak JSON are undocumented internal
+    backends for the CAA's own Angular widgets: ginfoapi.caa.co.uk (the G-INFO
+    UK aircraft register search) and aircraftapi.caa.co.uk (the Check an ATOL
+    search). Both are ASP.NET on Azure, both return HTTP 405 on GET and HTTP
+    400 on an unauthenticated POST, both send
+    "access-control-allow-origin: https://www.caa.co.uk", and the ATOL widget
+    carries a reCAPTCHA site key. There is no documentation, no terms of use
+    and no discoverable schema for either.
+
+    Real bulk data exists but is file-shaped, not API-shaped: monthly airport,
+    punctuality and airline statistics as CSV and PDF behind opaque
+    /Documents/Download/{siteId}/{guid}/{docId} URLs, and a historic ATOL
+    holders XLSX. The full G-INFO aircraft register is a paid subscription
+    emailed as an MS Excel file, licensed for use on a single PC.
+  probes:
+  - url: https://www.caa.co.uk/
+    status: 200
+    note: Main site. Umbraco/ASP.NET, build stamp 20260630.1.
+  - url: https://developer.caa.co.uk/
+    status: 000
+    note: DNS does not resolve.
+  - url: https://developers.caa.co.uk/
+    status: 000
+    note: DNS does not resolve.
+  - url: https://api.caa.co.uk/
+    status: 000
+    note: DNS does not resolve.
+  - url: https://docs.caa.co.uk/
+    status: 000
+    note: DNS does not resolve.
+  - url: https://data.caa.co.uk/
+    status: 000
+    note: DNS does not resolve.
+  - url: https://opendata.caa.co.uk/
+    status: 000
+    note: DNS does not resolve.
+  - url: https://www.caa.co.uk/api
+    status: 404
+  - url: https://www.caa.co.uk/developers
+    status: 404
+  - url: https://www.caa.co.uk/docs
+    status: 404
+  - url: https://www.caa.co.uk/openapi.json
+    status: 404
+  - url: https://www.caa.co.uk/swagger.json
+    status: 404
+  - url: https://www.caa.co.uk/api-docs
+    status: 404
+  - url: https://www.caa.co.uk/.well-known/openapi.json
+    status: 404
+  - url: https://www.caa.co.uk/robots.txt
+    status: 404
+    note: No robots.txt is served; the request returns the site 404 page.
+  - url: https://www.caa.co.uk/.well-known/security.txt
+    status: 200
+    note: 'Real. Contact via the Vulnerability Reporting Form; Expires 2027-04-01T12:30:00.000Z;
+      Policy https://www.caa.co.uk/website-policies/vulnerability-disclosure-policy/'
+  - url: https://www.caa.co.uk/sitemap.xml
+    status: 200
+    note: 2.18 MB, 8,798 <loc> entries. Scanned for api/dataset/download/statistic
+      paths; no developer or API documentation pages found.
+  - url: https://consultations.caa.co.uk/api/
+    status: 200
+    note: Citizen Space (Delib) API version index. Lists versions 2.0, 2.1, 2.2, 2.3,
+      2.4.
+  - url: https://consultations.caa.co.uk/api/2.4/
+    status: 200
+    note: Documented methods json_search_results and json_consultation_details, with
+      full parameter and response-field documentation. No OpenAPI offered.
+  - url: https://consultations.caa.co.uk/api/2.4/json_search_results?st=open&fields=all
+    status: 200
+    note: Verified live. Returned a 57,395-byte JSON array of open CAA consultation
+      activities. No API key, no signup, no rate-limit documentation.
+  - url: https://consultations.caa.co.uk/api/2.0/json_search_results?st=open&fields=all
+    status: 200
+    note: 15,974 bytes. Versions 2.0-2.3 all respond, confirming concurrent version
+      support.
+  - url: https://ginfoapi.caa.co.uk/
+    status: 403
+    note: '"You do not have permission to view this directory or page." ASP.NET on
+      Azure.'
+  - url: https://ginfoapi.caa.co.uk/api/aircraft/search
+    status: 405
+    note: |
+      Exists but GET is not allowed. Discovered from
+      data-apiendpoint="https://ginfoapi.caa.co.uk/api/aircraft/" on the G-INFO
+      search page. Unauthenticated POST returns 400 with response header
+      "access-control-allow-origin: https://www.caa.co.uk" — origin-locked to the
+      CAA website. Server headers: x-powered-by ASP.NET, x-aspnet-version
+      4.0.30319, x-azure-ref present.
+  - url: https://ginfoapi.caa.co.uk/swagger/v1/swagger.json
+    status: 404
+  - url: https://ginfoapi.caa.co.uk/openapi.json
+    status: 404
+  - url: https://aircraftapi.caa.co.uk/
+    status: 403
+  - url: https://aircraftapi.caa.co.uk/api/checkanatol/search
+    status: 405
+    note: Exists but GET is not allowed. Discovered from data-apiendpoint="https://aircraftapi.caa.co.uk/api/checkanatol/"
+      on the Search ATOL holders page, alongside data-recaptchasitekey. Unauthenticated
+      POST returns 400, origin-locked to https://www.caa.co.uk.
+  - url: https://aircraftapi.caa.co.uk/swagger/v1/swagger.json
+    status: 404
+  - url: https://www.caa.co.uk/Documents/Download/26833/11a95c0b-983c-49fc-ba36-4599da419397/17758
+    status: 200
+    note: 'Verified real data. content-type text/csv, 3,513 bytes. "Table 01 Size of
+      UK Airports", UK airport data May 2026. Header row: rundate,reporting_period,airport_name,this_year_pax,this_year_total_pax_UK_airports,last_year_pax,last_year_total_pax_UK_airports.
+      URL is an opaque GUID path with no index or enumeration.'
+  - url: https://www.caa.co.uk/media/3ybn1oqx/historic-atolholders-combined-data-authorisation-report-2009-2025.xlsx
+    status: 200
+    note: Verified real. 1,389,263 bytes, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.
+      Historic ATOL holder authorisation report 2009-2025.
+  - url: https://www.caa.co.uk/aircraft-register/g-info/g-info-download/
+    status: 200
+    note: Bulk G-INFO register is a paid subscription, emailed as MS Excel, licensed
+      for single-PC use only.
+  - url: https://ckan.publishing.service.gov.uk/api/3/action/organization_show?id=civil-aviation-authority
+    status: 200
+    note: 'data.gov.uk lists 8 CAA datasets: UK Airport Statistics, UK Airline Statistics,
+      UK Punctuality Statistics, UK Airline Financial Tables, Airport Slot Allocation,
+      Airport Departing Passenger Survey, Passenger experience and service at airports,
+      and a 2010 passenger survey. Resource URLs point at dead legacy caa.co.uk .aspx
+      addresses.'
+  - url: https://ckan.publishing.service.gov.uk/api/3/action/package_show?id=uk_airport_statistics
+    status: 200
+    note: 'license_title "License not specified", license_id "notspecified". NOT Open
+      Government Licence.'
+  - url: https://portal.caa.co.uk
+    status: 200
+    note: Redirects to sso.caa.co.uk ADFS WS-Federation sign-in. Customer/licence-holder
+      login, not a developer portal.
+  - url: https://www.caa.co.uk/newsroom/news/rss
+    status: 200
+    note: Returns HTML, not RSS. No RSS/Atom feed found on the CAA site.
+  - url: https://register-drones.caa.co.uk/
+    status: 200
+    note: Redirects to /my-registration. Drone and model aircraft registration service;
+      no public API surface found.
+  - url: https://register-drones.caa.co.uk/swagger/index.html
+    status: 404
+  - url: https://airspacechange.caa.co.uk/
+    status: 200
+    note: Airspace Change Portal. No /api or /swagger (both 404).
+  - url: https://github.com/ukcaa
+    status: 404
+    note: No CAA GitHub organisation found (ukcaa, uk-caa, civilaviationauthority all
+      404).
+  transports:
+  - protocol: REST
+    scheme: https
+    baseURL: https://consultations.caa.co.uk/api/2.4
+    documented: true
+    note: Citizen Space consultation API. GET, JSON, no auth.
+  - protocol: REST
+    scheme: https
+    baseURL: https://ginfoapi.caa.co.uk/api/aircraft
+    documented: false
+    note: Undocumented internal backend for the G-INFO register search widget. POST
+      only, origin-locked to https://www.caa.co.uk.
+  - protocol: REST
+    scheme: https
+    baseURL: https://aircraftapi.caa.co.uk/api/checkanatol
+    documented: false
+    note: Undocumented internal backend for the Check an ATOL search widget. POST only,
+      origin-locked, reCAPTCHA-gated.
+  - protocol: GraphQL
+    documented: false
+    note: None found.
+  - protocol: WebSocket
+    scheme: wss
+    documented: false
+    note: None found.
+
+switchingCost:
+  interfaceShape:
+    value: proprietary-undocumented
+    standardNamed: none
+    evidence: |
+      No open standard is referenced anywhere in the CAA's published API surface.
+      There is no OpenAPI, no AsyncAPI, no AIXM or ICAO aeronautical data-exchange
+      service published by the CAA, no OGC/INSPIRE endpoint, and no OData or CKAN
+      instance on a caa.co.uk domain.
+
+      The CAA regulates the UK Aeronautical Information Service — "the origination,
+      management, transmission and distribution of the aeronautical data and
+      aeronautical information that is published in Aeronautical Information
+      Publications" — but does not itself publish the UK AIP or NOTAM as a digital
+      service; that is done by NATS at nats-uk.ead-it.com. The CAA's own page on
+      aeronautical information mentions no AIXM, no digital data service and no API,
+      and directs data submitters to an Aeronautical Data Management Portal and to
+      aimr@caa.co.uk.
+
+      The only documented API is Citizen Space API v2.4, a proprietary interface
+      designed by Delib. It is not an open standard, but it is implemented
+      identically across every Citizen Space deployment in the UK public sector,
+      which makes it unusually portable for a proprietary shape — code written
+      against consultations.caa.co.uk works against any other Citizen Space tenant.
+
+      The aviation surfaces that matter (G-INFO aircraft register, Check an ATOL)
+      are undocumented and origin-locked. Classified proprietary-undocumented on
+      the strength of what a consumer of CAA aviation data actually faces.
+  secondSource:
+    value: no-alternative
+    alternativesConsidered: |
+      For the CAA's regulatory outputs there is, by statute, no second source.
+      Alternatives considered and rejected:
+        - G-INFO / UK aircraft register: the CAA is the statutory registrar under the
+          Air Navigation Order. Commercial aviation data vendors resell register
+          extracts but are downstream of the CAA and carry no legal authority. The
+          CAA's own "other data sources" page links only to OTHER states' registers
+          (Bosnia, Moldova, Spain), not to alternative sources for the UK register.
+        - ATOL holder status: ATOL is a UK statutory licensing scheme. Only the CAA
+          issues, revokes and publishes it. ABTA membership is a different scheme
+          covering different risk and is not a substitute.
+        - UK airport, airline and punctuality statistics: the CAA collects these under
+          statutory returns from more than 60 UK airports. OAG, Cirium and ACI publish
+          overlapping commercial datasets, but not the statutory series, and not the
+          route-level returns airports are compelled to file with the CAA.
+        - Consultation data: this one genuinely has alternatives — the Citizen Space
+          API shape is shared across the wider UK public sector — but it is the least
+          commercially significant surface the CAA operates.
+      An organisation that needs authoritative UK aircraft registration or ATOL
+      licensing data cannot obtain it from anyone else.
+  exitPath:
+    value: export-on-request
+    operationCited: |
+      No export, dump, bulk or data-portability OPERATION is published. There is no
+      /export endpoint on any CAA host, and neither undocumented aviation backend
+      exposes one.
+
+      What exists instead is an order-and-email process and a statutory request
+      route:
+        - G-INFO bulk register: ordered via a form; "The product is now e-mailed to
+          customers as an MS Excel file"; paid subscription; fees on the order form.
+        - Historic ATOL holders: a single published XLSX (verified 200, 1.39 MB) at
+          /media/3ybn1oqx/historic-atolholders-combined-data-authorisation-report-2009-2025.xlsx.
+        - Statistical series: individual CSV and PDF tables behind opaque
+          /Documents/Download/{siteId}/{guid}/{docId} URLs with no index, no
+          enumeration and no manifest. Verified: Table 01 Size of UK Airports,
+          May 2026, HTTP 200, text/csv, 3,513 bytes.
+        - Statutory route: "Your legal right of access to information is covered by
+          the Freedom of Information Act 2000, the Environmental Information
+          Regulations 2004 or, in the case of personal information, the UK General
+          Data Protection Regulation (UK GDPR) and Data Protection Act 2018."
+      Data portability therefore runs through FOI/EIR/SAR requests and paid orders,
+      not through a documented export.
+  identifierPortability:
+    value: |
+      Strongly portable industry identifiers, weakly portable delivery. The G-INFO
+      register's documented data fields hang on shared aviation identifiers that
+      travel between systems without translation:
+        - UK nationality and registration mark ("Mark", e.g. G-EZBA)
+        - ICAO 24-bit aircraft address, published in "binary, hexadecimal and octal
+          versions", used for Mode S transponders and ELT
+        - ICAO aircraft type designator, "two, three or four-character alphanumeric
+          code" per ICAO Doc 8643
+        - Manufacturer's serial number / constructor's number / PFA project number
+        - ICAO Annex 16 noise chapter certification
+      Airport statistics identify airports by NAME in the CSV (e.g. "HEATHROW"), not
+      by IATA or ICAO code, which forces a lookup join on free text.
+      ATOL holders are keyed by CAA-issued ATOL licence number, a proprietary UK
+      identifier with no equivalent elsewhere. The airline-ticket-agent exemption
+      route references IATA accreditation and ticketing authority, which is where
+      IATA/ARC agency numbering enters the UK picture.
+      No PNR record locator, no GDS record ID, no hotel chain code, no GIATA ID —
+      the CAA sits above booking-layer identifiers entirely.
+  contractualLockIn:
+    value: |
+      Verbatim, from the CAA's own pages:
+        - UK airport data (published on every monthly statistics page): "The
+          information contained in these reports has been compiled from various
+          sources of data. CAA validates this data, however, no warranty is given as
+          to its accuracy, integrity or reliability. CAA cannot accept liability for
+          any financial loss caused by a person's reliance on any of these
+          statistics. No statistical data provided by CAA maybe sold on to a third
+          party. CAA insists that they are referenced in any publication that makes
+          reference to CAA Statistics."
+        - G-INFO bulk download: the database is "authorised for use on a single PC
+          only"; distribution, copying or networking requires written CAA consent;
+          users cannot modify or redistribute the data. Cancellation within 7 days
+          under distance selling regulations requires return of materials at the
+          customer's expense.
+        - data.gov.uk records the licence for UK Airport Statistics as "License not
+          specified" (license_id "notspecified"). This is explicitly NOT the Open
+          Government Licence, despite the CAA being a public corporation.
+      The counterweight the CAA imposes ON industry — the regulatory answer to
+      distribution intermediation — is ATOL:
+        - "The ATOL Regulations equally apply to businesses established outside the
+          UK if they are advertising and selling to consumers in the UK", and apply
+          to flight-inclusive packages sold to UK consumers "irrespective of the
+          departure point of the flight".
+        - A business selling flights must hold its own ATOL unless it is "the operator
+          of the aircraft (an airline selling its own services)", "an ATOL holder", or
+          "a person who is exempt".
+        - The airline ticket agent exemption requires a "written agreement with the
+          airline to supply confirmed tickets" — or, for IATA-accredited agents,
+          ticketing authority plus compliance with IATA rules — plus direct dealings
+          with consumers only (selling to other travel businesses requires ATOL),
+          immediate issue of confirmed tickets on payment, and a duty to "notify the
+          consumer, that the business is an airline ticket agent for the named
+          airline(s) and that the flight is not protected under the ATOL scheme".
+      No API terms of service, no rate-limit policy and no SLA are published for any
+      CAA API surface.
+  accessGate:
+    value: self-serve
+    whatMustBeSigned: |
+      Nothing, for the one documented API. The Citizen Space consultation API at
+      consultations.caa.co.uk/api/2.4 requires no key, no account, no application and
+      no agreement; an anonymous GET returned data on 2026-07-28.
+      Everything else is gated differently and none of it is a developer gate:
+        - G-INFO and Check an ATOL JSON backends: no gate a developer can pass — CORS
+          is pinned to https://www.caa.co.uk and the ATOL widget carries a reCAPTCHA
+          site key. There is no application process because there is no published
+          programme.
+        - Bulk G-INFO register: a paid subscription ordered on a form, with a
+          single-PC licence. Commercial agreement in substance.
+        - Anything else: Freedom of Information Act 2000 / EIR 2004 / UK GDPR subject
+          access request.
+        - portal.caa.co.uk is an ADFS WS-Federation login for regulated entities
+          (licence and certificate holders), not a developer portal.
+      To sell UK flights as an intermediary a business must instead hold an ATOL, or
+      qualify for the airline-ticket-agent exemption via a written airline agreement
+      or IATA accreditation — an industry accreditation gate, not an API gate.
+  distributionModel:
+    value: not-applicable
+    ndcPosture: |
+      Not applicable — the CAA is a regulator and distributes no travel inventory.
+      It holds no NDC certification, publishes no NDC endpoint, and IATA's NDC
+      certification registry is IATA's, not a national authority's. Nothing on
+      caa.co.uk that was probed references NDC, OpenTravel/OTA or HTNG.
+      The CAA's lever over distribution is regulatory rather than technical: ATOL
+      licensing determines who may sell a flight-inclusive package to a UK consumer,
+      including extraterritorially, and the airline-ticket-agent exemption is written
+      around bilateral airline agreements and IATA accreditation — that is, around
+      the incumbent structure rather than around NDC.
+
+sources:
+- url: https://www.caa.co.uk/
+  type: Website
+  note: Homepage.
+- url: https://consultations.caa.co.uk/api/2.4/
+  type: APIReference
+  note: The only documented API on a CAA domain. Citizen Space (Delib) v2.4.
+- url: https://www.caa.co.uk/data-and-analysis/
+  type: Documentation
+  note: Data hub. Navigation only — no dataset downloads or API references at this
+    level.
+- url: https://www.caa.co.uk/aircraft-register/g-info/g-info-download/
+  type: Documentation
+  note: Paid Excel subscription; single-PC licence.
+- url: https://www.caa.co.uk/aircraft-register/g-info/what-do-the-data-fields-mean/
+  type: Documentation
+  note: Full G-INFO field dictionary. Source for the identifier-portability finding.
+- url: https://www.caa.co.uk/atol-protection/atol-requirements-for-the-travel-industry/do-i-need-an-atol/
+  type: Legal
+  note: Who must hold an ATOL, including extraterritorial application.
+- url: https://www.caa.co.uk/atol-protection/atol-compliance/requirements-legal-obligations/airline-ticket-agents/
+  type: Legal
+  note: Airline ticket agent exemption; IATA accreditation route.
+- url: https://www.caa.co.uk/about-us/information-requests/accessing-information-held-by-the-caa/
+  type: Legal
+  note: FOI 2000 / EIR 2004 / UK GDPR access routes.
+- url: https://www.caa.co.uk/commercial-industry/airspace/communication-navigation-and-surveillance/aeronautical-information/
+  type: Documentation
+  note: CAA regulates the AIS; does not publish the AIP itself. No AIXM or API mentioned.
+- url: https://ckan.publishing.service.gov.uk/api/3/action/organization_show?id=civil-aviation-authority
+  type: Dataset
+  note: 8 CAA datasets on data.gov.uk; licence "not specified".
+
+actions:
+  openapiHarvested: false
+  specsCount: 0
+  openapiDirectory: null
+  reason: |
+    No OpenAPI, Swagger, AsyncAPI, Postman collection or machine-readable API
+    description of any kind is published by the UK CAA or by the Citizen Space
+    deployment on its consultations domain. Nothing was fabricated or derived.
+    Every URL in this file was probed on 2026-07-28 and its HTTP status recorded.
+  apisYmlUpdated: true
