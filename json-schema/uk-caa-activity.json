@@ -1,0 +1,212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://consultations.caa.co.uk/schemas/activity",
+  "title": "Consultation activity",
+  "$comment": "Derived by the API Evangelist enrichment pipeline from openapi/uk-caa-consultations-api-openapi.yml, itself transcribed verbatim from the CAA's published API reference at https://consultations.caa.co.uk/api/2.4/ and cross-checked against a live anonymous response. The UK CAA publishes no JSON Schema of its own. Derived 2026-07-28.",
+  "description": "A published consultation or engagement activity. Field groups follow the `fields` parameter: basic fields are always present, fields marked extended require fields=extended or above, fields marked all require fields=all.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The ID of the activity"
+    },
+    "title": {
+      "type": "string",
+      "description": "The title of the activity"
+    },
+    "url": {
+      "type": "string",
+      "description": "The URL of the activity"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "forthcoming",
+        "closed"
+      ],
+      "description": "State: one of `open`, `forthcoming` or `closed`"
+    },
+    "overview": {
+      "type": "string",
+      "description": "Overview of the activity (HTML)"
+    },
+    "startdate": {
+      "type": "string",
+      "description": "The date the activity opens / opened on (observed format yyyy/mm/dd)"
+    },
+    "enddate": {
+      "type": "string",
+      "description": "The date the activity closes / closed on (observed format yyyy/mm/dd)"
+    },
+    "activity_type": {
+      "type": "string",
+      "description": "The activity type ID"
+    },
+    "workspace_title": {
+      "type": "string",
+      "description": "The title of the workspace that the activity belongs to (extended and above)"
+    },
+    "workspace_id": {
+      "type": "string",
+      "description": "The ID of the workspace that the activity belongs to (extended and above)"
+    },
+    "department": {
+      "type": "string",
+      "deprecated": true,
+      "description": "(deprecated) The name of the department that the activity belongs to (extended and above)"
+    },
+    "dept": {
+      "type": "string",
+      "deprecated": true,
+      "description": "(deprecated) The ID of the department that the activity belongs to (extended and above)"
+    },
+    "type_string": {
+      "type": "string",
+      "description": "Human readable activity type (extended and above)"
+    },
+    "type": {
+      "type": "string",
+      "deprecated": true,
+      "description": "(deprecated) The legacy type (extended and above)"
+    },
+    "participate_url": {
+      "type": "string",
+      "x-doc-name": "participation_url",
+      "description": "The direct URL to the participation method (survey etc), skipping the overview page (extended and above). The published reference names this field `participation_url`; the live 2.4 response emits `participate_url` \u2014 verified 2026-07-28."
+    },
+    "progress": {
+      "type": "string",
+      "description": "The current state of the activity (extended and above)"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": [
+        "public",
+        "private"
+      ],
+      "description": "Either 'public' or 'private' depending on if the activity has been hidden from end users (extended and above)"
+    },
+    "why": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The contents of the 'why are we consulting?' field (all only)"
+    },
+    "what_happens_next": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The contents of the 'what happens next?' field (all only)"
+    },
+    "feedbackdate": {
+      "type": "string",
+      "description": "The date that activity feedback is/was expected (all only)"
+    },
+    "resultdate": {
+      "type": "string",
+      "x-doc-name": "resultsdate",
+      "description": "The date that activity results are/were expected (all only). The published reference names this field `resultsdate`; the live 2.4 response emits `resultdate` \u2014 verified 2026-07-28."
+    },
+    "contact_name": {
+      "type": "string",
+      "description": "The full name entered in the activity's contact details (all only)"
+    },
+    "contact_jobtitle": {
+      "type": "string",
+      "description": "The job title entered in the activity's contact details (all only)"
+    },
+    "contact_team": {
+      "type": "string",
+      "description": "The team name entered in the activity's contact details (all only)"
+    },
+    "contact_phone": {
+      "type": "string",
+      "description": "The phone number entered in the activity's contact details (all only)"
+    },
+    "contact_email": {
+      "type": "string",
+      "description": "The email address entered in the activity's contact details (all only)"
+    },
+    "related_links": {
+      "type": "array",
+      "description": "A list of related links (all only)",
+      "items": {
+        "$ref": "uk-caa-related-link.json"
+      }
+    },
+    "related_consultations": {
+      "type": "array",
+      "description": "A list of related activities (all only)",
+      "items": {
+        "$ref": "uk-caa-related-link.json"
+      }
+    },
+    "supporting_documents": {
+      "type": "array",
+      "description": "A list of supporting documents (all only)",
+      "items": {
+        "$ref": "uk-caa-supporting-document.json"
+      }
+    },
+    "audiences": {
+      "type": "array",
+      "description": "A list of audiences this activity applies to (all only)",
+      "items": {
+        "$ref": "uk-caa-term.json"
+      }
+    },
+    "areas": {
+      "type": "array",
+      "description": "A list of ids for areas this activity applies to. NB: This field is omitted unless area support is installed (all only)",
+      "items": {
+        "$ref": "uk-caa-term.json"
+      }
+    },
+    "interests": {
+      "type": "array",
+      "description": "A list of ids for interests this activity applies to (all only)",
+      "items": {
+        "$ref": "uk-caa-term.json"
+      }
+    }
+  },
+  "x-observed-values": {
+    "activity_type": {
+      "basic_survey": 225,
+      "consultation": 1,
+      "basic_form": 4,
+      "File": 51,
+      "Link": 11,
+      "Document": 2
+    },
+    "type_string": {
+      "Online Survey": 225,
+      "Consultation": 1,
+      "Form": 4,
+      "Email/Postal Activity": 51,
+      "Link": 11,
+      "Offline Activity": 2
+    },
+    "type": {
+      "QuickConsult": 230,
+      "File": 51,
+      "Link": 11,
+      "Document": 2
+    },
+    "progress": {
+      "published": 294
+    },
+    "visibility": {
+      "public": 294
+    },
+    "status": {
+      "open": 17,
+      "closed": 277
+    }
+  },
+  "x-observed-source": "https://consultations.caa.co.uk/api/2.4/json_search_results?fields=all - 294 activities, HTTP 200, fetched 2026-07-28",
+  "x-required-note": "The API declares no required fields. Every field above was present on all 294 activities in the live corpus except optional arrays and the 'all'-tier fields; no required[] is asserted here because the provider asserts none."
+}

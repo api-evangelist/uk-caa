@@ -78,6 +78,21 @@ apis:
   - type: Examples
     name: Verified live json_consultation_details response (fields=all)
     url: examples/uk-caa-json-consultation-details-all.json
+  - type: JSONSchema
+    name: Consultation activity (derived from the transcribed OpenAPI)
+    url: json-schema/uk-caa-activity.json
+  - type: JSONSchema
+    name: Term (audience, area or interest)
+    url: json-schema/uk-caa-term.json
+  - type: JSONSchema
+    name: Supporting document
+    url: json-schema/uk-caa-supporting-document.json
+  - type: JSONSchema
+    name: Related link
+    url: json-schema/uk-caa-related-link.json
+  - type: Vocabulary
+    name: CAA consultation vocabulary derived from the full live corpus (294 activities)
+    url: vocabulary/uk-caa-vocabulary.yml
   - type: Website
     url: https://consultations.caa.co.uk/
 common:
@@ -116,6 +131,12 @@ common:
   url: errors/uk-caa-problem-types.yml
 - type: DataModel
   url: data-model/uk-caa-data-model.yml
+- type: Vocabulary
+  name: UK CAA consultation vocabulary — 19 workspaces, 47 audiences, 43 interests, derived from 294 live activities
+  url: vocabulary/uk-caa-vocabulary.yml
+- type: Packages
+  name: Registry search record — the CAA publishes no SDK or client library in any language
+  url: packages/uk-caa-packages.yml
 - type: AgentSkill
   url: skills/_index.yml
 - type: Arazzo
@@ -125,6 +146,15 @@ common:
   url: https://www.caa.co.uk/
 - type: Documentation
   url: https://www.caa.co.uk/data-and-analysis/
+- type: Documentation
+  name: CAA publications (CAP documents) — the authoritative regulatory library
+  url: https://www.caa.co.uk/publications/
+- type: Pricing
+  name: >-
+    G-INFO forms and fees — pricing and licence terms for the UK aircraft register
+    data product. The CAA's only published price list for machine-usable data; there
+    is no API pricing because there is no commercial API programme.
+  url: https://www.caa.co.uk/aircraft-register/g-info/g-info-forms-and-fees/
 - type: Blog
   url: https://www.caa.co.uk/newsroom/news/
 - type: LinkedIn

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://consultations.caa.co.uk/schemas/related-link",
+  "title": "RelatedLink",
+  "$comment": "Derived by the API Evangelist enrichment pipeline from openapi/uk-caa-consultations-api-openapi.yml, itself transcribed verbatim from the CAA's published API reference at https://consultations.caa.co.uk/api/2.4/ and cross-checked against a live anonymous response. The UK CAA publishes no JSON Schema of its own. Derived 2026-07-28.",
+  "type": "object",
+  "properties": {
+    "url": {
+      "type": "string",
+      "description": "The absolute url to link to"
+    },
+    "title": {
+      "type": "string",
+      "description": "The human-readable title of the link. Used for display."
+    }
+  }
+}

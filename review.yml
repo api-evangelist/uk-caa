@@ -450,6 +450,32 @@ enrichment:
   - url: https://api.github.com/orgs/ukcaa
     status: 404
     note: Re-confirmed via the GitHub API. uk-caa and civilaviationauthority also 404.
+  - url: https://consultations.caa.co.uk/api/2.4/json_search_results?fields=all
+    status: 200
+    note: |
+      SECOND PASS 2026-07-28 — the FULL corpus, unfiltered: 1,527,648 bytes,
+      application/json, 294 activities spanning 2016-03-15 to 2026-07-14, returned in
+      a single array in 101 seconds with no pagination and no rate limiting. This is
+      the whole of the CAA's public consultation history in one anonymous GET.
+      Derived into vocabulary/uk-caa-vocabulary.yml: 19 CAA workspaces, 47 audiences,
+      43 interests, 6 activity types, with per-term usage counts.
+  - url: https://www.caa.co.uk/aircraft-register/g-info/g-info-forms-and-fees/
+    status: 200
+    note: |
+      NEW — the CAA's only published price list for machine-usable data ("For pricing
+      and licence information on G-INFO choose a category"), covering the G-INFO
+      download, order form and conditions of sale. Wired as the Pricing pointer, named
+      so it cannot be mistaken for API pricing, which does not exist.
+  - url: https://www.caa.co.uk/website-policies/terms-of-use/
+    status: 404
+    note: |
+      No terms of use exist. The website-policies index links only to cookie-policy,
+      accessibility-statement, vulnerability-disclosure-policy and html-sitemap; the
+      homepage footer adds the general privacy notice and the FOI route. No
+      TermsOfService pointer is emitted.
+  - url: https://www.postman.com/_api/ws/proxy (search-all "civil aviation authority")
+    status: 200
+    note: Zero results across every index — no public Postman workspace, collection or API.
   observed:
     consultationsApiResponseHeaders:
       access-control-allow-origin: '*'
@@ -469,3 +495,12 @@ enrichment:
   - No status page, no SLA, no deprecation policy, no rate-limit policy, no API terms of service.
   - No trust centre and no published certifications (SOC 2 / ISO 27001 / PCI / Cyber Essentials).
   - No roadmap, no developer portal, no API pricing or signup.
+  - No terms of use anywhere on caa.co.uk (website-policies/terms-of-use → 404).
+  - >-
+    No CAA GitHub organisation: ukcaa, uk-caa, civilaviationauthority, caa-uk,
+    UKCivilAviationAuthority and ukcivilaviationauthority all 404 on the GitHub API
+    (re-probed 2026-07-28). No GitHubOrganization pointer emitted.
+  - >-
+    npm `delib` exists but is an unrelated Ethereum framework, not the Citizen Space
+    vendor — recorded in packages/uk-caa-packages.yml so a later round does not
+    mistake it for a first-party SDK.

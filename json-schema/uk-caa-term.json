@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://consultations.caa.co.uk/schemas/term",
+  "title": "Term",
+  "$comment": "Derived by the API Evangelist enrichment pipeline from openapi/uk-caa-consultations-api-openapi.yml, itself transcribed verbatim from the CAA's published API reference at https://consultations.caa.co.uk/api/2.4/ and cross-checked against a live anonymous response. The UK CAA publishes no JSON Schema of its own. Derived 2026-07-28.",
+  "description": "An audience, area or interest term.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The ID of the term. Used for searching."
+    },
+    "name": {
+      "type": "string",
+      "description": "The human-readable name of the term. Used for display."
+    }
+  }
+}

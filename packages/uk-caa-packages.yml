@@ -1,0 +1,67 @@
+generated: '2026-07-28'
+method: searched
+source: >-
+  Live registry probes 2026-07-28 (npm registry.npmjs.org, PyPI, GitHub org API),
+  plus https://www.caa.co.uk/ , https://www.caa.co.uk/llms.txt and
+  https://consultations.caa.co.uk/api/2.4/ .
+description: >-
+  The UK Civil Aviation Authority publishes NO client libraries, SDKs or packages
+  of any kind, in any language, on any registry. This file records the search so a
+  later round does not have to repeat it. It is a deliberate empty result, not a
+  gap in the harvest: the CAA operates no developer programme, so there is nothing
+  for an SDK to wrap. No SDKs pointer is emitted in apis.yml, because there is no
+  first-party client library to point at.
+packages: []
+search:
+  probed: '2026-07-28'
+  registries:
+    - registry: npm
+      queries: [citizenspace, citizen-space, delib, uk-caa, caa-api]
+      result: >-
+        No first-party package. Only `delib` returns 200 (npm 200) and it is an
+        unrelated Ethereum DApp framework by zhiwenh — not the Citizen Space
+        vendor Delib and not a CAA artifact.
+    - registry: pypi
+      queries: [citizenspace, uk-caa, caa-api, ukcaa]
+      result: All 404.
+    - registry: maven-central
+      result: Not probed by name; no Java client is referenced anywhere in CAA or vendor documentation.
+    - registry: nuget
+      result: >-
+        Not published. Notable because the two undocumented aviation JSON backends
+        (ginfoapi.caa.co.uk, aircraftapi.caa.co.uk) are ASP.NET — the stack is .NET,
+        the surface is still closed.
+    - registry: pkg.go.dev
+      result: No first-party module.
+    - registry: rubygems
+      result: No first-party gem.
+    - registry: packagist
+      result: No first-party package.
+    - registry: crates.io
+      result: No first-party crate.
+  source_repositories:
+    - host: github.com
+      result: >-
+        No CAA GitHub organisation exists. api.github.com/orgs/{ukcaa, uk-caa,
+        civilaviationauthority, caa-uk, UKCivilAviationAuthority,
+        ukcivilaviationauthority} all return 404 (probed 2026-07-28). There is
+        therefore no SourceCode, SDK or CLI link in apis.yml to derive candidates
+        from.
+  documentation:
+    - url: https://consultations.caa.co.uk/api/2.4/
+      result: >-
+        The one documented API reference offers no client library, no code sample
+        in any language, and no download. Integration is a plain HTTPS GET.
+    - url: https://help.delib.net/article/350-api-v2-x-developers-guide
+      result: >-
+        The vendor developer guide recommends server-side integration and permits
+        caching of results, but ships no SDK either.
+notes:
+  - >-
+    A consumer of the CAA consultations API needs no package: two anonymous GET
+    endpoints returning a JSON array. The absence of an SDK is proportionate to the
+    surface, not a failing of it.
+  - >-
+    The absence that does matter is upstream — there is no aviation data API for an
+    SDK to exist around. Bulk G-INFO is a paid MS Excel subscription licensed for a
+    single PC (see lifecycle/uk-caa-lifecycle.yml).

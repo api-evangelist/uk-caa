@@ -1,0 +1,416 @@
+generated: '2026-07-28'
+method: derived
+source: >-
+  https://consultations.caa.co.uk/api/2.4/json_search_results?fields=all (HTTP 200,
+  application/json, 1,527,648 bytes, 294 activities, fetched 2026-07-28) plus the
+  enumerations transcribed in openapi/uk-caa-consultations-api-openapi.yml.
+name: UK Civil Aviation Authority consultation vocabulary
+description: >-
+  The controlled vocabulary the UK Civil Aviation Authority actually uses to classify
+  its public consultations and engagement activities, derived from the complete live
+  corpus of every activity the CAA has published through the Citizen Space API
+  (294 activities spanning 2016-03-15 to 2026-07-14). Nothing here is invented: every
+  term id and display name below was emitted verbatim by the API on 2026-07-28, and the
+  usage count is the number of activities carrying that term. This is the closest thing
+  the CAA publishes to a machine-readable taxonomy of its own regulatory remit, and the
+  only place in the estate where the regulator's internal structure (19 workspaces, from
+  GA and Economic regulation to Cyber Security and Space) is exposed as stable ids.
+statistics:
+  activities: 294
+  date_range:
+    first_start: '2016/03/15'
+    last_start: '2026/07/14'
+  status:
+    open: 17
+    closed: 277
+  progress:
+    published: 294
+  visibility:
+    public: 294
+  workspaces: 19
+  audiences: 47
+  interests: 43
+  areas: 0
+term_sets:
+  - set: workspaces
+    title: "CAA workspaces (departments)"
+    description: >-
+      Each activity belongs to one workspace. The workspace id is the `de` search parameter and the `dept` argument of json_consultation_details; workspace_title is its display name. These are CAA business units, and they are the only stable public identifiers for the regulator's internal structure.
+    parameter: "de / dept"
+    count: 19
+    terms:
+      - id: "ga"
+        name: "GA"
+        activities: 49
+      - id: "policy-development"
+        name: "Policy Development"
+        activities: 41
+      - id: "economic-regulation"
+        name: "Economic regulation"
+        activities: 33
+      - id: "corporate-communications"
+        name: "Communications"
+        activities: 28
+      - id: "airworthiness-policy-team"
+        name: "Airworthiness Policy Team"
+        activities: 23
+      - id: "safety-and-airspace-regulation-group"
+        name: "Safety and Airspace Regulation Group"
+        activities: 20
+      - id: "cmg"
+        name: "Consumers and Markets"
+        activities: 15
+      - id: "air-traffic-management"
+        name: "Air Traffic Management"
+        activities: 12
+      - id: "finance"
+        name: "Finance"
+        activities: 12
+      - id: "future-safety"
+        name: "Future Safety"
+        activities: 11
+      - id: "aerodrome-standards-department"
+        name: "Aerodrome Standards Department"
+        activities: 10
+      - id: "flight-operations-policy"
+        name: "Flight Operations Policy"
+        activities: 9
+      - id: "space"
+        name: "Space"
+        activities: 8
+      - id: "rpas"
+        name: "RPAS"
+        activities: 7
+      - id: "innovation"
+        name: "Innovation"
+        activities: 7
+      - id: "portfolio-delivery"
+        name: "Portfolio Delivery"
+        activities: 3
+      - id: "internal"
+        name: "Internal"
+        activities: 2
+      - id: "medical"
+        name: "Medical"
+        activities: 2
+      - id: "cyber-security"
+        name: "Cyber Security"
+        activities: 2
+  - set: audiences
+    title: "Audiences"
+    description: >-
+      Who a consultation is aimed at; the term id is the value of the `au` search parameter. The CAA's audience taxonomy spans regulated entities (Commercial airlines, Aerodrome Operators), individuals (Airline passenger, Drone owner) and peer regulators (EASA, ICAO, Eurocontrol, European Commission).
+    parameter: "au"
+    count: 47
+    terms:
+      - id: "Commercial airlines"
+        activities: 129
+      - id: "General Aviation"
+        activities: 118
+      - id: "Airport operators"
+        activities: 110
+      - id: "Air Navigation Service Providers"
+        activities: 95
+      - id: "Industry representative bodies"
+        activities: 87
+      - id: "Regulatory bodies"
+        activities: 77
+      - id: "Aerodrome Operators"
+        activities: 71
+      - id: "Organisations affected by aviation"
+        activities: 70
+      - id: "UAV operators"
+        activities: 59
+      - id: "Government departments"
+        activities: 55
+      - id: "Air traffic control staff"
+        activities: 54
+      - id: "Flightcrew"
+        activities: 46
+      - id: "Residents affected by aviation"
+        activities: 46
+      - id: "Community groups"
+        activities: 44
+      - id: "Drone operator"
+        activities: 42
+      - id: "Military"
+        activities: 42
+      - id: "Training organisations"
+        activities: 40
+      - id: "International Civil Aviation Organization"
+        activities: 39
+      - id: "Air taxi operators"
+        activities: 38
+      - id: "National representative organisations or institutes"
+        activities: 38
+      - id: "Drone owner"
+        activities: 36
+      - id: "European Aviation Safety Agency"
+        activities: 36
+      - id: "Eurocontrol"
+        activities: 34
+      - id: "Ground handling providers"
+        activities: 33
+      - id: "Elected political representatives"
+        activities: 32
+      - id: "Airline passenger"
+        activities: 32
+      - id: "Cargo shippers-1"
+        name: "Cargo shippers"
+        activities: 31
+      - id: "ATS initial training organisations"
+        activities: 30
+      - id: "Ballons"
+        name: "Balloons"
+        activities: 29
+      - id: "Tour operators"
+        activities: 29
+      - id: "Autogyros"
+        activities: 28
+      - id: "FISO licence holders"
+        activities: 27
+      - id: "Travel agents"
+        activities: 26
+      - id: "RFFS Training Providers "
+        activities: 26
+      - id: "Workers' representative bodies"
+        activities: 26
+      - id: "European Commission"
+        activities: 24
+      - id: "Model aircraft enthusiast"
+        activities: 22
+      - id: "Spaceflight"
+        activities: 20
+      - id: "Flight operations"
+        activities: 18
+      - id: "eVTOL sector interest groups"
+        activities: 16
+      - id: "Aviation Design & Certification "
+        activities: 16
+      - id: "Airworthiness maintenance organisations"
+        activities: 15
+      - id: "Business Aviation"
+        activities: 14
+      - id: "Internal "
+        activities: 8
+      - id: "Maintenance & Engineers"
+        activities: 5
+      - id: "Design & Certification"
+        activities: 4
+      - id: "Manufacturers"
+        activities: 4
+  - set: interests
+    title: "Interests (subject taxonomy)"
+    description: >-
+      The subject matter of a consultation; the term id is the value of the `in` search parameter. This is the CAA's own topical map of its regulatory remit - airworthiness, airspace, licensing, ATOL, consumer protection, spaceflight, drones.
+    parameter: "in"
+    count: 43
+    terms:
+      - id: "Economic regulation-2"
+        name: "Economic regulation"
+        activities: 62
+      - id: "Air Traffic Control-1"
+        name: "Air Traffic Control"
+        activities: 47
+      - id: "Light aircraft"
+        activities: 43
+      - id: "Drones"
+        activities: 42
+      - id: "Economic regulation-1"
+        name: "Economic regulation"
+        activities: 40
+      - id: "Safety"
+        activities: 39
+      - id: "Capacity"
+        activities: 38
+      - id: "Airspace design, categorisation and access"
+        activities: 34
+      - id: "Flying Displays and Events"
+        activities: 32
+      - id: "Flightpaths"
+        activities: 30
+      - id: "Airspace investment"
+        activities: 30
+      - id: "Aircraft emissions"
+        activities: 28
+      - id: "Airworthiness"
+        activities: 27
+      - id: "Microlights"
+        activities: 27
+      - id: "Aircraft noise"
+        activities: 27
+      - id: "Airspace change proposals"
+        activities: 27
+      - id: "Air Traffic Control"
+        activities: 26
+      - id: "Consumer protection"
+        activities: 26
+      - id: "Training"
+        activities: 25
+      - id: "Airworthiness-1"
+        name: "Airworthiness"
+        activities: 24
+      - id: "Gyroplanes"
+        activities: 23
+      - id: "Rescue and fire fighting"
+        activities: 22
+      - id: "Model Aircraft"
+        activities: 21
+      - id: "Local air quality"
+        activities: 20
+      - id: "Security"
+        activities: 18
+      - id: "Spaceflight"
+        activities: 18
+      - id: "FISO training, qualification and licensing"
+        activities: 17
+      - id: "AMC, GM, Licencing"
+        name: "AMC & GM consultations"
+        activities: 16
+      - id: "Flight Operations"
+        activities: 15
+      - id: "Punctuality"
+        activities: 14
+      - id: "Disability rights"
+        activities: 13
+      - id: "Licensing"
+        activities: 12
+      - id: "Manufacturers"
+        activities: 11
+      - id: "CAA Strategy"
+        activities: 11
+      - id: "Implementing Regulations"
+        name: "Implementing Rules"
+        activities: 10
+      - id: "Design and Certification"
+        activities: 9
+      - id: "Baggage"
+        activities: 9
+      - id: "ATOL"
+        activities: 9
+      - id: "Internal Consultation "
+        name: "Internal "
+        activities: 9
+      - id: "VTOL Operations-1"
+        name: "VTOL Operations"
+        activities: 8
+      - id: "Special Condition consultations"
+        activities: 7
+      - id: "MOC to Special Conditions"
+        activities: 7
+      - id: "Manufacturers-1"
+        name: "Manufacturers"
+        activities: 3
+  - set: activity_types
+    title: "Activity types"
+    description: >-
+      The kind of engagement. activity_type is the current 2.4 identifier (`at` search
+      parameter), type_string is its display name, and type is the deprecated 2.0-2.3
+      legacy value (`ct` search parameter). Counts are from the full corpus.
+    parameter: "at / ct"
+    count: 6
+    terms:
+      - id: basic_survey
+        name: Online Survey
+        legacy_type: QuickConsult
+        activities: 225
+      - id: File
+        name: Email/Postal Activity
+        legacy_type: File
+        activities: 51
+      - id: Link
+        name: Link
+        legacy_type: Link
+        activities: 11
+      - id: basic_form
+        name: Form
+        legacy_type: QuickConsult
+        activities: 4
+      - id: Document
+        name: Offline Activity
+        legacy_type: Document
+        activities: 2
+      - id: consultation
+        name: Consultation
+        legacy_type: QuickConsult
+        activities: 1
+  - set: states
+    title: "Activity states"
+    description: >-
+      The `st` search parameter and the `status` response field. Transcribed from the
+      published reference and confirmed against the live corpus.
+    parameter: "st"
+    count: 3
+    terms:
+      - id: open
+        activities: 17
+      - id: forthcoming
+        activities: 0
+        note: Documented and accepted by the API; no activity in the live corpus currently carries it.
+      - id: closed
+        activities: 277
+  - set: field_tiers
+    title: "Field tiers"
+    description: >-
+      The `fields` parameter. Cumulative - `all` includes `extended`, `extended` includes
+      `basic`. Omitting the parameter is equivalent to `basic`.
+    parameter: "fields"
+    count: 3
+    terms:
+      - id: basic
+      - id: extended
+      - id: all
+  - set: date_search_keys
+    title: "Date search keys"
+    description: The `dk` parameter, which selects which date `fd` and `td` filter against.
+    parameter: "dk"
+    count: 2
+    terms:
+      - id: op
+        name: open date
+      - id: cl
+        name: close date
+data_quality:
+  description: >-
+    Findings observed while deriving this vocabulary from the live corpus. These are real
+    defects in the CAA's published taxonomy, recorded rather than smoothed over.
+  findings:
+    - issue: duplicate-interest-ids
+      detail: >-
+        Four interest display names are backed by two ids each, differing only by a numeric
+        suffix - "Airworthiness"/"Airworthiness-1", "Air Traffic Control"/"Air Traffic
+        Control-1", "Manufacturers"/"Manufacturers-1", and "Economic regulation-1"/"Economic
+        regulation-2" (there is no unsuffixed "Economic regulation" id). A consumer
+        filtering with in=Airworthiness silently misses every activity tagged with the
+        duplicate.
+    - issue: identifiers-are-display-strings
+      detail: >-
+        Term ids are human-readable labels, not slugs - they carry spaces, ampersands,
+        commas and case ("AMC, GM, Licencing", "Design & Certification"). They must be
+        URL-encoded, and any change to the label is a breaking change to the id.
+    - issue: trailing-whitespace-in-ids
+      detail: >-
+        Several ids end in a space and are therefore easy to mis-handle - "Internal ",
+        "Internal Consultation ", "Aviation Design & Certification ", "RFFS Training
+        Providers ".
+    - issue: id-name-divergence
+      detail: >-
+        Some ids do not match their display name, including a typo preserved in the id -
+        audience id "Ballons" displays as "Balloons"; interest id "AMC, GM, Licencing"
+        displays as "AMC & GM consultations"; interest id "Implementing Regulations"
+        displays as "Implementing Rules".
+    - issue: areas-unavailable
+      detail: >-
+        The `ar` (area) parameter is documented, but no activity in the corpus carries an
+        areas array - the reference itself notes the field "is omitted unless area support
+        is installed". Area support is not installed on the CAA instance.
+notes:
+  - >-
+    Scope limit worth stating plainly - this vocabulary describes the CAA's CONSULTATION
+    platform, not UK aviation. The CAA publishes no aeronautical vocabulary: no AIXM, no
+    digital AIP, no NOTAM feed, no code list of its own. See
+    conformance/uk-caa-conformance.yml.
+  - >-
+    Terms are a moving target. Workspaces, audiences and interests are configured per
+    Citizen Space site and can be added or renamed by CAA staff at any time; counts are a
+    snapshot of 2026-07-28.
