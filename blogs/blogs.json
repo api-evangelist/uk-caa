@@ -1,0 +1,14 @@
+{
+  "repo": "uk-caa",
+  "feeds": [
+    {
+      "source": "https://www.caa.co.uk/aircraft-register/g-info/g-info-forms-and-fees/",
+      "feed_url": "https://www.caa.co.uk/aircraft-register/g-info/g-info-forms-and-fees/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-08-01T15:49:00Z"
+}
