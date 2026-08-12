@@ -96,6 +96,8 @@ apis:
   - type: Website
     url: https://consultations.caa.co.uk/
 common:
+- type: MCPServer
+  url: mcp/uk-caa-mcp.yml
 - type: AgenticAccess
   url: agentic-access/uk-caa-agentic-access.yml
 - type: VulnerabilityDisclosure
