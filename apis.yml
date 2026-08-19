@@ -37,7 +37,7 @@ tags:
 - Open Data
 created: '2026-07-28'
 modified: '2026-07-28'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: uk-caa:caa-consultations-api
   name: CAA Consultations API
