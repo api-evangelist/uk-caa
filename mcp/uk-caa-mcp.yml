@@ -2,15 +2,12 @@ generated: '2026-07-28'
 method: derived
 status: candidate
 source: openapi/uk-caa-consultations-api-openapi.yml
-description: >-
-  The UK Civil Aviation Authority publishes NO MCP server. Searched on 2026-07-28:
-  no mcp.caa.co.uk, no MCP reference anywhere on caa.co.uk or in the CAA's own
-  llms.txt, no CAA GitHub organisation (ukcaa, uk-caa and civilaviationauthority all
-  return 404 from the GitHub API), and no npm or registry package. The tools below
-  are a CANDIDATE surface derived one-to-one from the operations in the
-  transcribed OpenAPI — they are a proposal for what an MCP server over this API
-  would expose, not something the CAA operates. Each tool inherits its real input
-  schema from the backing operation's parameters.
+description: 'The UK Civil Aviation Authority publishes NO MCP server. Searched on 2026-07-28: no mcp.caa.co.uk,
+  no MCP reference anywhere on caa.co.uk or in the CAA''s own llms.txt, no CAA GitHub organisation (ukcaa,
+  uk-caa and civilaviationauthority all return 404 from the GitHub API), and no npm or registry package.
+  The tools below are a CANDIDATE surface derived one-to-one from the operations in the transcribed OpenAPI
+  — they are a proposal for what an MCP server over this API would expose, not something the CAA operates.
+  Each tool inherits its real input schema from the backing operation''s parameters.'
 server:
   name: uk-caa-consultations
   published: false
@@ -20,40 +17,57 @@ server:
 search:
   probed: '2026-07-28'
   checked:
-    - caa.co.uk (site + llms.txt): no MCP mention
-    - https://api.github.com/orgs/ukcaa -> 404
-    - https://api.github.com/orgs/uk-caa -> 404
-    - https://api.github.com/orgs/civilaviationauthority -> 404
-    - consultations.caa.co.uk: no /mcp, no /.well-known/oauth-protected-resource
+  - caa.co.uk (site + llms.txt): no MCP mention
+  - https://api.github.com/orgs/ukcaa -> 404
+  - https://api.github.com/orgs/uk-caa -> 404
+  - https://api.github.com/orgs/civilaviationauthority -> 404
+  - consultations.caa.co.uk: no /mcp, no /.well-known/oauth-protected-resource
 tools:
-  - name: search_caa_consultations
-    description: >-
-      Search published UK CAA consultation and engagement activities by free text,
-      state, audience, interest, area, workspace, activity type or date window.
-    source_operation: openapi/uk-caa-consultations-api-openapi.yml#json_search_results
-    auth: none
-    read_only: true
-    input_parameters: [tx, pc, st, au, in, de, ar, dk, fd, td, at, ct, fields]
-  - name: get_caa_consultation
-    description: >-
-      Retrieve one CAA consultation activity by its workspace/department id and
-      activity id, at the basic, extended or all field tier.
-    source_operation: openapi/uk-caa-consultations-api-openapi.yml#json_consultation_details
-    auth: none
-    read_only: true
-    input_parameters: [dept, id, fields]
-    required: [dept, id]
+- name: search_caa_consultations
+  description: Search published UK CAA consultation and engagement activities by free text, state, audience,
+    interest, area, workspace, activity type or date window.
+  source_operation: openapi/uk-caa-consultations-api-openapi.yml#json_search_results
+  auth: none
+  read_only: true
+  input_parameters:
+  - tx
+  - pc
+  - st
+  - au
+  - in
+  - de
+  - ar
+  - dk
+  - fd
+  - td
+  - at
+  - ct
+  - fields
+- name: get_caa_consultation
+  description: Retrieve one CAA consultation activity by its workspace/department id and activity id,
+    at the basic, extended or all field tier.
+  source_operation: openapi/uk-caa-consultations-api-openapi.yml#json_consultation_details
+  auth: none
+  read_only: true
+  input_parameters:
+  - dept
+  - id
+  - fields
+  required:
+  - dept
+  - id
 notes:
-  - >-
-    A candidate MCP server here would be trivially safe to run: both operations are
-    anonymous, read-only GETs over public data with CORS wide open. See
-    agentic-access/uk-caa-agentic-access.yml — both classify as connected/read.
-  - >-
-    No tool crosswalk artifact is emitted for this provider: a crosswalk binds a
-    REAL MCP tool set (or GraphQL schema) to OpenAPI operations, and the CAA
-    operates neither.
-  - >-
-    The CAA's aviation surfaces that would actually merit MCP tools — the G-INFO
-    aircraft register and Check an ATOL — have no public API to bind to. Their JSON
-    backends are POST-only, undocumented, origin-locked to https://www.caa.co.uk and
-    reCAPTCHA-gated.
+- 'A candidate MCP server here would be trivially safe to run: both operations are anonymous, read-only
+  GETs over public data with CORS wide open. See agentic-access/uk-caa-agentic-access.yml — both classify
+  as connected/read.'
+- 'No tool crosswalk artifact is emitted for this provider: a crosswalk binds a REAL MCP tool set (or
+  GraphQL schema) to OpenAPI operations, and the CAA operates neither.'
+- The CAA's aviation surfaces that would actually merit MCP tools — the G-INFO aircraft register and Check
+  an ATOL — have no public API to bind to. Their JSON backends are POST-only, undocumented, origin-locked
+  to https://www.caa.co.uk and reCAPTCHA-gated.
+deployment:
+  mode: none
+  verified: derived
+  tools: 2
+  checked: '2026-08-12'
+  source: catalog MCP census

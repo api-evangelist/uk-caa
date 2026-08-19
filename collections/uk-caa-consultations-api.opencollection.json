@@ -1,0 +1,140 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CAA Consultations API (Citizen Space 2.4)",
+    "version": "2.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Consultations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search published consultation activities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://consultations.caa.co.uk/api/2.4/json_search_results",
+            "params": [
+              {
+                "name": "tx",
+                "value": "",
+                "type": "query",
+                "description": "Free text search, case insensitive (eg \"Park\")"
+              },
+              {
+                "name": "pc",
+                "value": "",
+                "type": "query",
+                "description": "Postcode, accepts partial postcodes (eg \"BS8\" or \"BS8 111\")"
+              },
+              {
+                "name": "st",
+                "value": "",
+                "type": "query",
+                "description": "State, must be one of `open`, `forthcoming` or `closed`"
+              },
+              {
+                "name": "au",
+                "value": "",
+                "type": "query",
+                "description": "Audience ID, must be one of the audiences configured on the site"
+              },
+              {
+                "name": "in",
+                "value": "",
+                "type": "query",
+                "description": "Interest ID, must be one of the interests configured on the site"
+              },
+              {
+                "name": "de",
+                "value": "",
+                "type": "query",
+                "description": "Department the activity sits within. Value must be the same as the ID of a department within the site"
+              },
+              {
+                "name": "ar",
+                "value": "",
+                "type": "query",
+                "description": "Area ID, must be one of the areas configured on the site"
+              },
+              {
+                "name": "dk",
+                "value": "",
+                "type": "query",
+                "description": "Date search type, must be one of `op` (open date) and `cl` (close date)"
+              },
+              {
+                "name": "fd",
+                "value": "",
+                "type": "query",
+                "description": "Date to search from. Must be used in conjunction with `dk` (dd/mm/yyyy)"
+              },
+              {
+                "name": "td",
+                "value": "",
+                "type": "query",
+                "description": "Date to search until. Must be used in conjunction with `dk` (dd/mm/yyyy)"
+              },
+              {
+                "name": "at",
+                "value": "",
+                "type": "query",
+                "description": "Activity type. Must be one of the activity types available to the site."
+              },
+              {
+                "name": "ct",
+                "value": "",
+                "type": "query",
+                "description": "(deprecated) Legacy activity type. Must be one of `QuickConsult` (Online Survey), `File` (Email/Postal Activity), `Document` (Offline Activity), or `Link` (Link)"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Determines which groups of metadata fields about the activities will be returned. Permissible values are 'basic', 'extended' and 'all'. Omitting this parameter is equivalent to 'basic'."
+              }
+            ]
+          },
+          "docs": "Accepts any of the documented search parameters. If no arguments are supplied, all published activities are returned. Any unsupported arguments are ignored. Returns a JSON array of activity objects."
+        },
+        {
+          "info": {
+            "name": "Get one consultation activity by department and activity ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://consultations.caa.co.uk/api/2.4/json_consultation_details",
+            "params": [
+              {
+                "name": "dept",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the department (eg 'parks-and-recreation')"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the activity (eg 'spring-planting-in-kings-gardens')"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Determines which groups of metadata fields about the activities will be returned. Permissible values are 'basic', 'extended' and 'all'. Omitting this parameter is equivalent to 'basic'."
+              }
+            ]
+          },
+          "docs": "Returns a JSON structure containing the same fields as json_search_results. If dept or id are not specified or do not exist, a 404 status code is returned."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

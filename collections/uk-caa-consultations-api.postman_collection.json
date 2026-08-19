@@ -1,0 +1,378 @@
+{
+  "item": [
+    {
+      "id": "9a655a4c-e4b8-473b-901f-9ff84bd89d39",
+      "name": "Consultations",
+      "description": {
+        "content": "Published CAA consultation and engagement activities.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3265771c-b80c-4a71-8297-ef714cfd2c3b",
+          "name": "Search published consultation activities",
+          "request": {
+            "name": "Search published consultation activities",
+            "description": {
+              "content": "Accepts any of the documented search parameters. If no arguments are supplied, all published activities are returned. Any unsupported arguments are ignored. Returns a JSON array of activity objects.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "json_search_results"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "tx",
+                  "value": "<string>",
+                  "description": "Free text search, case insensitive (eg \"Park\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "pc",
+                  "value": "<string>",
+                  "description": "Postcode, accepts partial postcodes (eg \"BS8\" or \"BS8 111\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "st",
+                  "value": "<string>",
+                  "description": "State, must be one of `open`, `forthcoming` or `closed`"
+                },
+                {
+                  "disabled": false,
+                  "key": "au",
+                  "value": "<string>",
+                  "description": "Audience ID, must be one of the audiences configured on the site"
+                },
+                {
+                  "disabled": false,
+                  "key": "in",
+                  "value": "<string>",
+                  "description": "Interest ID, must be one of the interests configured on the site"
+                },
+                {
+                  "disabled": false,
+                  "key": "de",
+                  "value": "<string>",
+                  "description": "Department the activity sits within. Value must be the same as the ID of a department within the site"
+                },
+                {
+                  "disabled": false,
+                  "key": "ar",
+                  "value": "<string>",
+                  "description": "Area ID, must be one of the areas configured on the site"
+                },
+                {
+                  "disabled": false,
+                  "key": "dk",
+                  "value": "<string>",
+                  "description": "Date search type, must be one of `op` (open date) and `cl` (close date)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fd",
+                  "value": "<string>",
+                  "description": "Date to search from. Must be used in conjunction with `dk` (dd/mm/yyyy)"
+                },
+                {
+                  "disabled": false,
+                  "key": "td",
+                  "value": "<string>",
+                  "description": "Date to search until. Must be used in conjunction with `dk` (dd/mm/yyyy)"
+                },
+                {
+                  "disabled": false,
+                  "key": "at",
+                  "value": "<string>",
+                  "description": "Activity type. Must be one of the activity types available to the site."
+                },
+                {
+                  "disabled": false,
+                  "key": "ct",
+                  "value": "<string>",
+                  "description": "(deprecated) Legacy activity type. Must be one of `QuickConsult` (Online Survey), `File` (Email/Postal Activity), `Document` (Offline Activity), or `Link` (Link)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "basic",
+                  "description": "Determines which groups of metadata fields about the activities will be returned. Permissible values are 'basic', 'extended' and 'all'. Omitting this parameter is equivalent to 'basic'."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9ad47aaa-0436-44a1-99d5-0c1b447b5d8d",
+              "name": "A JSON array of activities matching the search.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "json_search_results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tx",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "st",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "au",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "in",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "de",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ar",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dk",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fd",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "td",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ct",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "basic"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"title\": \"string\",\n    \"url\": \"string\",\n    \"status\": \"forthcoming\",\n    \"overview\": \"string\",\n    \"startdate\": \"string\",\n    \"enddate\": \"string\",\n    \"activity_type\": \"string\",\n    \"workspace_title\": \"string\",\n    \"workspace_id\": \"string\",\n    \"department\": \"string\",\n    \"dept\": \"string\",\n    \"type_string\": \"string\",\n    \"type\": \"string\",\n    \"participate_url\": \"string\",\n    \"progress\": \"string\",\n    \"visibility\": \"private\",\n    \"why\": \"string\",\n    \"what_happens_next\": \"string\",\n    \"feedbackdate\": \"string\",\n    \"resultdate\": \"string\",\n    \"contact_name\": \"string\",\n    \"contact_jobtitle\": \"string\",\n    \"contact_team\": \"string\",\n    \"contact_phone\": \"string\",\n    \"contact_email\": \"string\",\n    \"related_links\": [\n      {\n        \"url\": \"string\",\n        \"title\": \"string\"\n      },\n      {\n        \"url\": \"string\",\n        \"title\": \"string\"\n      }\n    ],\n    \"related_consultations\": [\n      {\n        \"url\": \"string\",\n        \"title\": \"string\"\n      },\n      {\n        \"url\": \"string\",\n        \"title\": \"string\"\n      }\n    ],\n    \"supporting_documents\": [\n      {\n        \"url\": \"string\",\n        \"title\": \"string\",\n        \"size\": \"string\"\n      },\n      {\n        \"url\": \"string\",\n        \"title\": \"string\",\n        \"size\": \"string\"\n      }\n    ],\n    \"audiences\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"areas\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"interests\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ]\n  },\n  {\n    \"id\": \"string\",\n    \"title\": \"string\",\n    \"url\": \"string\",\n    \"status\": \"closed\",\n    \"overview\": \"string\",\n    \"startdate\": \"string\",\n    \"enddate\": \"string\",\n    \"activity_type\": \"string\",\n    \"workspace_title\": \"string\",\n    \"workspace_id\": \"string\",\n    \"department\": \"string\",\n    \"dept\": \"string\",\n    \"type_string\": \"string\",\n    \"type\": \"string\",\n    \"participate_url\": \"string\",\n    \"progress\": \"string\",\n    \"visibility\": \"private\",\n    \"why\": \"string\",\n    \"what_happens_next\": \"string\",\n    \"feedbackdate\": \"string\",\n    \"resultdate\": \"string\",\n    \"contact_name\": \"string\",\n    \"contact_jobtitle\": \"string\",\n    \"contact_team\": \"string\",\n    \"contact_phone\": \"string\",\n    \"contact_email\": \"string\",\n    \"related_links\": [\n      {\n        \"url\": \"string\",\n        \"title\": \"string\"\n      },\n      {\n        \"url\": \"string\",\n        \"title\": \"string\"\n      }\n    ],\n    \"related_consultations\": [\n      {\n        \"url\": \"string\",\n        \"title\": \"string\"\n      },\n      {\n        \"url\": \"string\",\n        \"title\": \"string\"\n      }\n    ],\n    \"supporting_documents\": [\n      {\n        \"url\": \"string\",\n        \"title\": \"string\",\n        \"size\": \"string\"\n      },\n      {\n        \"url\": \"string\",\n        \"title\": \"string\",\n        \"size\": \"string\"\n      }\n    ],\n    \"audiences\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"areas\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"interests\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "878ac401-ce4b-492f-bc4e-98d7d6a71c3e",
+          "name": "Get one consultation activity by department and activity ID",
+          "request": {
+            "name": "Get one consultation activity by department and activity ID",
+            "description": {
+              "content": "Returns a JSON structure containing the same fields as json_search_results. If dept or id are not specified or do not exist, a 404 status code is returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "json_consultation_details"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dept",
+                  "value": "<string>",
+                  "description": "(Required) The ID of the department (eg 'parks-and-recreation')"
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "(Required) The ID of the activity (eg 'spring-planting-in-kings-gardens')"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "basic",
+                  "description": "Determines which groups of metadata fields about the activities will be returned. Permissible values are 'basic', 'extended' and 'all'. Omitting this parameter is equivalent to 'basic'."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f4e5b660-ecc8-4143-9ec5-871a6144cb2c",
+              "name": "The activity.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "json_consultation_details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dept",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "basic"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"title\": \"string\",\n  \"url\": \"string\",\n  \"status\": \"open\",\n  \"overview\": \"string\",\n  \"startdate\": \"string\",\n  \"enddate\": \"string\",\n  \"activity_type\": \"string\",\n  \"workspace_title\": \"string\",\n  \"workspace_id\": \"string\",\n  \"department\": \"string\",\n  \"dept\": \"string\",\n  \"type_string\": \"string\",\n  \"type\": \"string\",\n  \"participate_url\": \"string\",\n  \"progress\": \"string\",\n  \"visibility\": \"private\",\n  \"why\": \"string\",\n  \"what_happens_next\": \"string\",\n  \"feedbackdate\": \"string\",\n  \"resultdate\": \"string\",\n  \"contact_name\": \"string\",\n  \"contact_jobtitle\": \"string\",\n  \"contact_team\": \"string\",\n  \"contact_phone\": \"string\",\n  \"contact_email\": \"string\",\n  \"related_links\": [\n    {\n      \"url\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"url\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"related_consultations\": [\n    {\n      \"url\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"url\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"supporting_documents\": [\n    {\n      \"url\": \"string\",\n      \"title\": \"string\",\n      \"size\": \"string\"\n    },\n    {\n      \"url\": \"string\",\n      \"title\": \"string\",\n      \"size\": \"string\"\n    }\n  ],\n  \"audiences\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    }\n  ],\n  \"areas\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    }\n  ],\n  \"interests\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc17f7b5-3cff-4f34-b855-ecdce2bdeebf",
+              "name": "Returned when dept or id are not specified or do not exist (documented verbatim in the CAA API reference).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "json_consultation_details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dept",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "basic"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://consultations.caa.co.uk/api/2.4",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4e8a25aa-42d1-4617-a5c1-c030b448d8ef",
+    "name": "CAA Consultations API (Citizen Space 2.4)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Machine-readable description of the Citizen Space (Delib) public consultation API deployed on the UK Civil Aviation Authority's consultations domain.\n\nPROVENANCE: this document is NOT published by the UK CAA or by Delib. It was written by API Evangelist as a faithful transcription of the CAA's own published API reference at https://consultations.caa.co.uk/api/2.4/ (HTTP 200, fetched 2026-07-28), with every parameter name, allowed value, description and response field copied from that page. Field names and types were then cross-checked against a live anonymous response (GET /api/2.4/json_search_results?st=open&fields=all -> HTTP 200, application/json, 57,395 bytes, 2026-07-28). Nothing was invented; where the published documentation and the live response disagree on a field name, both are recorded and the divergence is flagged with x-doc-name.\n\nThe CAA publishes no OpenAPI of its own. Versions 2.0, 2.1, 2.2, 2.3 and 2.4 are served concurrently at https://consultations.caa.co.uk/api/. No API key, no signup and no documented rate limit.\n\nContact Support:\n Name: UK Civil Aviation Authority",
+      "type": "text/plain"
+    }
+  }
+}
