@@ -23,6 +23,18 @@ description: >-
   XLSX files behind opaque GUID download URLs, and the full G-INFO aircraft register
   is a paid subscription emailed as an MS Excel file licensed for use on a single PC.
   Home market is the United Kingdom.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://www.caa.co.uk/apple-touch-icon.png
 tags:
 - Travel
