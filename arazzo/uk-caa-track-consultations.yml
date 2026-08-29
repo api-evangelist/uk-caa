@@ -9,6 +9,17 @@ info:
     A two-step read-only workflow over the only documented, publicly callable API on
     a caa.co.uk domain. Both operationIds are verified present in the referenced
     OpenAPI. No authentication is required at any step.
+  x-realizes-capability-ids:
+  - BC-3200.30
+  x-capability-derivation:
+    method: 'deterministic join: sourceDescriptions -> per-tag OpenAPI -> tag/capability edge. No classification at this step.'
+    min_confidence: 0.7
+    sources:
+    - capability_id: BC-3200.30
+      capability_name: Stakeholder and Public Consultation
+      spec: uk-caa-consultations-api-openapi.yml
+      confidence: 0.9
+    model: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities, CC BY 4.0
 sourceDescriptions:
 - name: consultationsApi
   url: ../openapi/uk-caa-consultations-api-openapi.yml
