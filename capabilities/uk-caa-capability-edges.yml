@@ -1,0 +1,25 @@
+slug: uk-caa
+provider: UK Civil Aviation Authority
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Public Sector & Government
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Consultations
+  spec_file: uk-caa-consultations-api-openapi.yml
+  capability_id: BC-3200.30
+  capability_id_l1: BC-3200
+  capability_name: Stakeholder and Public Consultation
+  confidence: 0.9
+  evidence: Search published consultation activities; "the Citizen Space (Delib) public consultation API
+    deployed on the UK Civil Aviation Authority's consultations domain"
+  reason: Operations expose published public consultation activities and their details — directly the
+    design and delivery of stakeholder and public consultation in the policy cycle.

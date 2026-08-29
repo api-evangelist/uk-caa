@@ -108,6 +108,9 @@ apis:
   - type: Website
     url: https://consultations.caa.co.uk/
 common:
+- type: CapabilityMap
+  url: capabilities/uk-caa-capability-edges.yml
+  name: UK Civil Aviation Authority Business Capability Map
 - type: MCPServer
   url: mcp/uk-caa-mcp.yml
 - type: AgenticAccess
