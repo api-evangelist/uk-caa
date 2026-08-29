@@ -1,6 +1,6 @@
-generated: '2026-07-28'
-method: derived
-source: derived from the arazzo/*.yml files in this repo
+x-generated: '2026-07-28'
+x-method: derived
+x-source: derived from the arazzo/*.yml files in this repo
 workflows:
   - file: uk-caa-track-consultations.yml
     workflowId: search-and-open-caa-consultation
