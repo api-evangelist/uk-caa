@@ -57,7 +57,6 @@ tags:
 - Airports
 - Regulator
 - Government
-- Distribution
 - Consumer Protection
 - Open Data
 tags_raw:
@@ -68,7 +67,6 @@ tags_raw:
 - Airports
 - Regulator
 - Government
-- Distribution
 - Consumer Protection
 - Open Data
 created: '2026-07-28'
@@ -242,3 +240,5 @@ common:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-tags-removed:
+- Distribution
