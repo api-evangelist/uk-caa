@@ -191,37 +191,6 @@ paths:
           description: Returned when dept or id are not specified or do not exist (documented verbatim in the CAA API reference).
 components:
   schemas:
-    SupportingDocument:
-      type: object
-      properties:
-        url:
-          type: string
-          description: The absolute url to link to
-        title:
-          type: string
-          description: The human-readable title of the document, or filename if title was not specified. Used for display.
-        size:
-          type: string
-          description: The size of the document including units (eg kB, MB). Used for display.
-    RelatedLink:
-      type: object
-      properties:
-        url:
-          type: string
-          description: The absolute url to link to
-        title:
-          type: string
-          description: The human-readable title of the link. Used for display.
-    Term:
-      type: object
-      description: An audience, area or interest term.
-      properties:
-        id:
-          type: string
-          description: The ID of the term. Used for searching.
-        name:
-          type: string
-          description: The human-readable name of the term. Used for display.
     Activity:
       type: object
       title: Consultation activity
@@ -351,3 +320,34 @@ components:
           description: A list of ids for interests this activity applies to (all only)
           items:
             $ref: '#/components/schemas/Term'
+    SupportingDocument:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The absolute url to link to
+        title:
+          type: string
+          description: The human-readable title of the document, or filename if title was not specified. Used for display.
+        size:
+          type: string
+          description: The size of the document including units (eg kB, MB). Used for display.
+    RelatedLink:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The absolute url to link to
+        title:
+          type: string
+          description: The human-readable title of the link. Used for display.
+    Term:
+      type: object
+      description: An audience, area or interest term.
+      properties:
+        id:
+          type: string
+          description: The ID of the term. Used for searching.
+        name:
+          type: string
+          description: The human-readable name of the term. Used for display.
